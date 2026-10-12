@@ -26,6 +26,7 @@ class Step:
     args: dict[str, Any] = field(default_factory=dict)
     prompt: str | None = None
     on_error: str = "fail"
+    when: str | None = None
 
     @property
     def is_llm(self) -> bool:
@@ -38,6 +39,7 @@ class Workflow:
     description: str
     inputs: dict[str, Any]
     steps: list[Step]
+    matrix: dict[str, list[Any]] = field(default_factory=dict)
     source: Path | None = None
 
     def required_inputs(self) -> list[str]:
@@ -46,6 +48,18 @@ class Workflow:
             for k, v in self.inputs.items()
             if not isinstance(v, dict) or "default" not in v
         ]
+
+    def matrix_combos(self) -> list[dict[str, Any]]:
+        if not self.matrix:
+            return []
+        keys = list(self.matrix)
+        combos: list[dict[str, Any]] = [{}]
+        for key in keys:
+            values = self.matrix[key]
+            if not isinstance(values, list) or not values:
+                raise WorkflowError(f"matrix axis {key!r} must be a non-empty list")
+            combos = [{**c, key: v} for c in combos for v in values]
+        return combos
 
 
 def load_workflow(path: str | Path) -> Workflow:
@@ -66,6 +80,7 @@ def load_workflow(path: str | Path) -> Workflow:
                 args=dict(raw.get("args", {})),
                 prompt=raw.get("prompt"),
                 on_error=raw.get("on_error", "fail"),
+                when=raw.get("when"),
             )
         )
     if not steps:
@@ -73,13 +88,17 @@ def load_workflow(path: str | Path) -> Workflow:
     ids = [s.id for s in steps]
     if len(set(ids)) != len(ids):
         raise WorkflowError(f"workflow {path} has duplicate step ids: {ids}")
-    return Workflow(
+    matrix = dict(data.get("matrix", {}) or {})
+    workflow = Workflow(
         name=str(data.get("name", path.stem)),
         description=str(data.get("description", "")),
         inputs=dict(data.get("inputs", {})),
         steps=steps,
+        matrix=matrix,
         source=path,
     )
+    workflow.matrix_combos()
+    return workflow
 
 
 def substitute(value: Any, scope: dict[str, Any]) -> Any:
@@ -201,28 +220,88 @@ class WorkflowRunner:
                         f"missing required input {key!r} for workflow {workflow.name!r}"
                     )
 
+        combos = workflow.matrix_combos()
+        if not combos:
+            return await self._run_once(
+                workflow,
+                inputs,
+                dry_run=dry_run,
+                resume=resume,
+                matrix_scope={},
+                combo_label=None,
+            )
+
+        log = self.ctx.log
+        aggregate = WorkflowResult(workflow=workflow.name, ok=True, dry_run=dry_run)
+        for combo in combos:
+            label = "-".join(str(v).replace(".", "") for v in combo.values())
+            scope = {f"matrix.{k}": v for k, v in combo.items()}
+            sub = await self._run_once(
+                workflow,
+                inputs,
+                dry_run=dry_run,
+                resume=False,
+                matrix_scope=scope,
+                combo_label=label,
+            )
+            aggregate.ok = aggregate.ok and sub.ok
+            aggregate.outputs.update(sub.outputs)
+            if sub.checkpoint is not None:
+                aggregate.checkpoint = sub.checkpoint
+            for sr in sub.steps:
+                aggregate.steps.append(sr)
+            log.emit(
+                "workflow_matrix_combo",
+                workflow=workflow.name,
+                combo=label,
+                ok=sub.ok,
+            )
+        return aggregate
+
+    async def _run_once(
+        self,
+        workflow: Workflow,
+        inputs: dict[str, Any],
+        *,
+        dry_run: bool,
+        resume: bool,
+        matrix_scope: dict[str, Any],
+        combo_label: str | None,
+    ) -> WorkflowResult:
         log = self.ctx.log
         result = WorkflowResult(workflow=workflow.name, ok=True, dry_run=dry_run)
 
+        def sid(step_id: str) -> str:
+            return f"{step_id}[{combo_label}]" if combo_label else step_id
+
         if dry_run:
-            scope = self._build_scope(inputs, {})
+            scope = self._build_scope(inputs, {}, matrix_scope)
             for step in workflow.steps:
+                if not self._when_holds(step, scope):
+                    result.steps.append(
+                        StepResult(
+                            id=sid(step.id), ok=True, output="(skipped)", latency_ms=0
+                        )
+                    )
+                    continue
                 rendered = substitute({"args": step.args, "prompt": step.prompt}, scope)
                 log.emit(
                     "workflow_step_planned",
                     workflow=workflow.name,
-                    step=step.id,
+                    step=sid(step.id),
                     dry_run=True,
                 )
-                result.outputs[step.id] = json.dumps(rendered, sort_keys=True)
+                result.outputs[sid(step.id)] = json.dumps(rendered, sort_keys=True)
                 result.steps.append(
-                    StepResult(id=step.id, ok=True, output="(dry-run)", latency_ms=0)
+                    StepResult(
+                        id=sid(step.id), ok=True, output="(dry-run)", latency_ms=0
+                    )
                 )
             return result
 
         completed: list[str] = []
         outputs: dict[str, str] = {}
-        if resume:
+        if resume and not combo_label:
             cp = self._load_checkpoint(workflow.name)
             if cp:
                 completed = list(cp.get("completed", []))
@@ -233,17 +312,24 @@ class WorkflowRunner:
                 )
 
         for step in workflow.steps:
+            full_id = sid(step.id)
             if step.id in completed:
                 result.steps.append(
                     StepResult(
-                        id=step.id,
+                        id=full_id,
                         ok=True,
                         output=outputs.get(step.id, ""),
                         latency_ms=0,
                     )
                 )
                 continue
-            scope = self._build_scope(inputs, outputs)
+            scope = self._build_scope(inputs, outputs, matrix_scope)
+            if not self._when_holds(step, scope):
+                result.steps.append(
+                    StepResult(id=full_id, ok=True, output="(skipped)", latency_ms=0)
+                )
+                log.emit("workflow_step_skipped", workflow=workflow.name, step=full_id)
+                continue
             timer = Timer()
             try:
                 if step.is_llm:
@@ -253,7 +339,7 @@ class WorkflowRunner:
             except Exception as exc:
                 latency = timer.ms
                 sr = StepResult(
-                    id=step.id,
+                    id=full_id,
                     ok=False,
                     output="",
                     latency_ms=latency,
@@ -263,43 +349,54 @@ class WorkflowRunner:
                 log.emit(
                     "workflow_error",
                     workflow=workflow.name,
-                    step=step.id,
+                    step=full_id,
                     error=sr.error,
                 )
                 if step.on_error == "continue":
                     outputs[step.id] = f"error: {sr.error}"
                     continue
                 result.ok = False
-                result.checkpoint = self._write_checkpoint(
-                    workflow.name,
-                    completed,
-                    outputs,
-                    inputs,
-                    str(workflow.source or ""),
-                )
+                if not combo_label:
+                    result.checkpoint = self._write_checkpoint(
+                        workflow.name,
+                        completed,
+                        outputs,
+                        inputs,
+                        str(workflow.source or ""),
+                    )
                 return result
             latency = timer.ms
             outputs[step.id] = output
             completed.append(step.id)
             result.steps.append(
-                StepResult(id=step.id, ok=True, output=output, latency_ms=latency)
+                StepResult(id=full_id, ok=True, output=output, latency_ms=latency)
             )
             log.emit(
                 "workflow_step",
                 workflow=workflow.name,
-                step=step.id,
+                step=full_id,
                 kind="llm" if step.is_llm else "tool",
                 latency_ms=round(latency, 1),
             )
 
         result.outputs = outputs
         cp_path = self._checkpoint_path(workflow.name)
-        if cp_path.exists():
+        if cp_path.exists() and not combo_label:
             cp_path.unlink()
         return result
 
+    @staticmethod
+    def _when_holds(step: Step, scope: dict[str, Any]) -> bool:
+        if not step.when:
+            return True
+        rendered = str(substitute(step.when, scope)).strip()
+        return rendered.lower() not in ("", "0", "false", "no", "none")
+
     def _build_scope(
-        self, inputs: dict[str, Any], outputs: dict[str, str]
+        self,
+        inputs: dict[str, Any],
+        outputs: dict[str, str],
+        matrix_scope: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         import os
 
@@ -308,6 +405,8 @@ class WorkflowRunner:
             scope[f"inputs.{k}"] = v
         for k, v in outputs.items():
             scope[f"steps.{k}.output"] = v
+        for k, v in (matrix_scope or {}).items():
+            scope[k] = v
         scope["env"] = dict(os.environ)
         return scope
 
@@ -317,8 +416,10 @@ class WorkflowRunner:
         args = substitute(step.args or {}, scope)
         call = await self.registry.call(step.tool, args, self.ctx)
         if not call.ok:
+            receipt = (call.output or "")[-2000:]
             raise WorkflowError(
                 f"step {step.id!r} failed in tool {step.tool}: {call.error}"
+                + (f"\n{receipt}" if receipt else "")
             )
         return call.output
 

@@ -1,0 +1,73 @@
+name: ci-local
+description: >-
+  Local mirror of .github/workflows/ci.yml. Runs the same checks GitHub Actions
+  runs, on your machine, with mycelium as the engine: conventional-commit scan,
+  the test suite, and (when Ollama is up) the live model tier. Matrix axes
+  iterate like the Actions matrix; on a single machine you typically pass
+  --input python=3.12 to pin one combo.
+
+inputs:
+  python:
+    default: "3.12"
+  live:
+    default: ""
+    description: set to 1 to also run the live model tier (needs ollama)
+
+steps:
+  - id: commit-scan
+    tool: run_command
+    args:
+      command: "python3 scripts/check-commits.py HEAD~10..HEAD"
+
+  - id: sync
+    tool: run_command
+    args:
+      command: "uv sync --dev"
+
+  - id: test-core
+    tool: run_command
+    args:
+      command: "uv run pytest -q -m 'not e2e and not live'"
+      timeout_s: 300
+
+  - id: test-e2e
+    tool: run_command
+    args:
+      command: "uv run pytest -q -m e2e"
+      timeout_s: 600
+
+  - id: live-check
+    tool: run_command
+    args:
+      command: "python3 -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:11434/api/version', timeout=3)\""
+    when: "{{inputs.live}}"
+    on_error: continue
+
+  - id: test-live
+    tool: run_command
+    args:
+      command: "uv run pytest -q -m live"
+      timeout_s: 900
+    when: "{{inputs.live}}"
+
+  - id: build
+    tool: run_command
+    args:
+      command: "uv build"
+      cwd: "."
+
+  - id: report
+    tool: fs_write
+    args:
+      path: "CI_LOCAL_RESULT.md"
+      content: |
+        # ci-local result
+
+        - commit-scan: {{steps.commit-scan.output}}
+        - sync: {{steps.sync.output}}
+        - core: {{steps.test-core.output}}
+        - e2e: {{steps.test-e2e.output}}
+        - live: {{steps.test-live.output}}
+        - build: {{steps.build.output}}
+
+        Run `mcy report` for the full session telemetry.

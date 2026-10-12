@@ -100,6 +100,8 @@ class Settings:
     verbose: bool = False
     read_only: bool = False
     port: int = 8787
+    command_allow: list[str] = field(default_factory=list)
+    command_timeout_s: int = 600
     backends: dict[str, BackendConfig] = field(default_factory=dict)
     connections: dict[str, dict] = field(default_factory=dict)
 
@@ -172,6 +174,7 @@ def load_settings(
     read_only: bool | None = None,
     home: Path | None = None,
     config_path: Path | None = None,
+    command_allow: list[str] | None = None,
 ) -> Settings:
     home = home or app_home()
     ws = resolve_workspace(workspace)
@@ -196,6 +199,8 @@ def load_settings(
         verbose=bool(raw.get("verbose", False)),
         read_only=bool(raw.get("read_only", False)),
         port=int(raw.get("port", 8787)),
+        command_allow=list((raw.get("commands") or {}).get("allow", [])),
+        command_timeout_s=int((raw.get("commands") or {}).get("timeout_s", 600)),
         backends=_backend_configs(raw),
         connections=dict(raw.get("connections", {})),
     )
@@ -219,5 +224,7 @@ def load_settings(
     elif os.environ.get(ENV_READ_ONLY, "").lower() in ("1", "true", "yes"):
         settings.read_only = True
 
+    if command_allow is not None:
+        settings.command_allow = list(command_allow)
     settings.home.mkdir(parents=True, exist_ok=True)
     return settings

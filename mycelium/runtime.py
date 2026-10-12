@@ -14,6 +14,7 @@ from mycelium.tools.scaffold import scaffold_tool
 from mycelium.tools.research import research_tool
 from mycelium.tools.content import content_tool
 from mycelium.tools.integrations import integrations_tool
+from mycelium.tools.exec import exec_tool
 from mycelium.tools.memory_tools import memory_tools
 from mycelium.workflows import WorkflowRunner, workflow_tool
 
@@ -26,6 +27,7 @@ def build_registry() -> ToolRegistry:
     registry.register(research_tool())
     registry.register(content_tool())
     registry.register(integrations_tool())
+    registry.register(exec_tool())
     for t in memory_tools():
         registry.register(t)
     registry.register(workflow_tool())

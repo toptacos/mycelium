@@ -14,6 +14,15 @@ class PolicyViolation(Exception):
     pass
 
 
+class ToolFailure(Exception):
+    """A tool ran correctly but its subject failed (e.g. a command exited
+    non-zero). Carries the output so the receipt survives the failure."""
+
+    def __init__(self, error: str, output: str = "") -> None:
+        super().__init__(error)
+        self.output = output
+
+
 def resolve_in_workspace(workspace: Path, relative: str | Path) -> Path:
     """Resolve a user/model-supplied path, denying escapes via traversal or symlink tricks."""
     if not str(relative).strip():
@@ -164,6 +173,10 @@ class ToolRegistry:
                 name=name, ok=True, latency_ms=latency, result_chars=len(output)
             )
             return CallResult(tool=name, ok=True, output=output, latency_ms=latency)
+        except ToolFailure as exc:
+            latency = timer.ms
+            ctx.log.emit_tool(name=name, ok=False, latency_ms=latency, error=str(exc))
+            return CallResult(tool=name, ok=False, output=exc.output, latency_ms=latency, error=str(exc))
         except PolicyViolation as exc:
             latency = timer.ms
             output = f"error: policy violation: {exc}"

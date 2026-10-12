@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Local CI**: `run_command` tool (allowlisted executables, no shell,
+  workspace-scoped, output + exit captured, `ToolFailure` preserves the failing
+  output), `matrix:` axes and `when:` conditions in workflows, and
+  `workflows/ci-local.yaml` mirroring `.github/workflows/ci.yml` — commit scan,
+  both test tiers, and the wheel build run locally via
+  `mcy --workspace . workflow run ci-local [--input live=1]`. New `[commands]`
+  settings (`allow`, `timeout_s`). Docs: `docs/CI_ALTERNATIVES.md`.
+- Suite is now 190 tests; 12 tools registered.
+
 ### Fixed
 - **Windows path separators**: fs_read/fs_write/fs_list/fs_grep and scaffold
   output emitted backslash paths; all workspace-relative paths are now POSIX.

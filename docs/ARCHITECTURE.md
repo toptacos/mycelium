@@ -140,6 +140,10 @@ multi-tenant isolation:
   latencies, sizes — not bodies).
 - No tool executes arbitrary shell commands. `scaffold_app --run-tests` runs
   only the scaffold's own suite, with a 180s timeout.
+- `run_command` is the only exec surface: no shell (`shlex.split` + argv),
+  executable allowlist (`[commands] allow`), workspace-scoped cwd, timeout, and
+  nonzero exits raise `ToolFailure` so workflows fail with the receipt intact.
+  It is `mutating=True` and never granted to read-only sessions.
 
 ## Extension points
 

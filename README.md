@@ -58,6 +58,11 @@ uv run mcy workflow list
 uv run mcy workflow run release-notes --input repo_path=.
 uv run mcy workflow run release-notes --dry-run
 
+# local CI: run the same checks GitHub Actions runs, on your machine
+uv run mcy --workspace . workflow run ci-local            # commit scan + suites + build
+uv run mcy --workspace . workflow run ci-local --input live=1   # + live model tier
+# (see docs/CI_ALTERNATIVES.md for Woodpecker/self-hosted options)
+
 # memory: teach it something, then watch it recall
 uv run mcy learn "deploys are fridays only" --kind preference --tags deploy
 uv run mcy memory recall "when do we deploy"
@@ -90,6 +95,7 @@ asserted artifacts:
 | content creation | `create_content` | `content/<slug>-<kind>.md` with front matter + H1 |
 | third-party integration | `call_api` | HTTP status + payload interpretation |
 | workflow execution | `run_workflow` | `RELEASE_NOTES.md` + step outcomes |
+| local CI | `run_command` (allowlisted, no shell) | every step green; failing command's output preserved |
 
 Run the whole library deterministically:
 

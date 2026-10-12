@@ -45,6 +45,18 @@ disk:
 Because the scripted backend records every call, these tests also pin the
 request shapes (system prompt present, tools schema non-empty).
 
+## Local CI (mycelium as the engine)
+
+`workflows/ci-local.yaml` mirrors the GitHub Actions pipeline — commit scan,
+core suite, e2e suite, live tier, wheel build — executed by mycelium's own
+workflow engine through the `run_command` tool. Full details, capability
+mapping, and alternatives to GitHub Actions: [CI_ALTERNATIVES.md](CI_ALTERNATIVES.md).
+
+```bash
+mcy --workspace . workflow run ci-local
+mcy --workspace . workflow run ci-local --input live=1
+```
+
 ## Live tier
 
 `tests/test_live.py` (`-m live`) skips with a stated reason when Ollama is
