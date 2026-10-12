@@ -1,5 +1,9 @@
 # mycelium
 
+[![ci](https://github.com/toptacos/mycelium/actions/workflows/ci.yml/badge.svg)](https://github.com/toptacos/mycelium/actions/workflows/ci.yml)
+[![license](https://img.shields.io/badge/license-Apache--2.0-FF2E88)](LICENSE)
+[![version](https://img.shields.io/badge/version-0.1.0--beta-8B2FC9)](https://github.com/toptacos/mycelium/releases)
+
 **Plant it once. It grows.** A local-first agent workstation. One small Python package that **scaffolds applications, researches the web, creates content, calls third-party APIs, and runs multi-step workflows** — using models that run on your machine, learning as it goes, and staying conscious of its context window.
 
 The name is the architecture: mycelium is the network under the forest floor. `mcy` is the fruiting body you call; the roots, threads, and memory live on your machine, where your data never leaves.
