@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- **Windows path separators**: fs_read/fs_write/fs_list/fs_grep and scaffold
+  output emitted backslash paths; all workspace-relative paths are now POSIX.
+- **Windows proxy e2e teardown**: `terminate()` instead of `SIGINT`
+  (unsupported in Windows subprocess).
+- **CI live tier**: wait for Ollama readiness before pulling the model.
+- **Installer e2e on Windows**: resolve Git Bash explicitly (WSL bash on the
+  runner broke); run the shim through bash.
+- `mcy --version` was missing.
+- Stale doc references; test-count claims synced to measured tiers.
+
 ### Added
 - **Psychedelic rebrand** (`brand/`): animated spotted-mushroom logo masters
   (SMIL), palette Void/Magenta/Violet/Cyan/Lime/Amber/Cream, full guidelines
