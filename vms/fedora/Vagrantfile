@@ -1,0 +1,18 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# Fedora 40 VM (dnf instead of apt; RPM host).
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/fedora-40"
+  config.vm.hostname = "mycelium-fedora"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.cpus = 4
+    vb.memory = 8192
+  end
+
+  config.vm.network "forwarded_port", guest: 8787, host: 8788, auto_correct: true
+
+  config.vm.synced_folder "../..", "/vagrant"
+
+  config.vm.provision "shell", path: "provision-fedora.sh"
+end

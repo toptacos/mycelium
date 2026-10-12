@@ -1,0 +1,17 @@
+#cloud-config
+# Multipass (macOS/Linux) alternative to Vagrant.
+#   multipass launch 24.04 --name mycelium --cloud-init vms/common/multipass-cloud-init.yaml
+#   multipass exec mycelium -- bash -c "cd ..."   (see scripts/vm-smoke.sh)
+package_update: true
+packages:
+  - curl
+  - git
+  - build-essential
+
+runcmd:
+  - curl -fsSL https://astral.sh/uv/install.sh | sh
+  - curl -fsSL https://ollama.com/install.sh | sh
+  - ollama serve > /var/log/ollama.log 2>&1 &
+  - sleep 5
+  - ollama pull qwen3:0.6b
+  - echo "mycelium VM ready: uv + ollama + qwen3:0.6b"

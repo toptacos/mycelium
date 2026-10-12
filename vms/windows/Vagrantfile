@@ -1,0 +1,24 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# Windows Server 2022 VM. Requires the virtualbox provider and a Windows box.
+# The PowerShell provisioner installs uv, Ollama, pulls a model, syncs, tests.
+#
+#   cd vms/windows && vagrant up --provider virtualbox
+#   vagrant powershell -c "cd C:\vagrant; uv run pytest -q"
+Vagrant.configure("2") do |config|
+  config.vm.box = "gusztavvargadr/windows-11"
+  config.vm.hostname = "mycelium-windows"
+  config.vm.communicator = "winrm"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.cpus = 4
+    vb.memory = 8192
+    vb.gui = false
+  end
+
+  config.vm.network "forwarded_port", guest: 8787, host: 8790, auto_correct: true
+
+  config.vm.synced_folder "../..", "/vagrant"
+
+  config.vm.provision "shell", path: "provision-windows.ps1", powershell_elevated_interactive: false
+end

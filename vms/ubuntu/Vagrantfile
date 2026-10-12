@@ -1,0 +1,19 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# Ubuntu 24.04 VM: installs uv + Ollama + qwen3:0.6b, syncs the repo,
+# runs the full test suite and the sample-prompt suite inside the guest.
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-24.04"
+  config.vm.hostname = "mycelium-ubuntu"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.cpus = 4
+    vb.memory = 8192
+  end
+
+  config.vm.network "forwarded_port", guest: 8787, host: 8787, auto_correct: true
+
+  config.vm.synced_folder "../..", "/vagrant"
+
+  config.vm.provision "shell", path: "provision-ubuntu.sh"
+end
