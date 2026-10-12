@@ -21,7 +21,7 @@ case "$cmd" in
     version="${2:?usage: scripts/release.sh tag 0.2.0}"
     echo "== tests =="
     uv run pytest -q
-    python - "$version" <<'EOF'
+    python3 - "$version" <<'EOF'
 import re, sys
 from pathlib import Path
 version = sys.argv[1]
@@ -37,7 +37,7 @@ print(f"version set to {version}")
 EOF
     if ! grep -q "## \[$version\]" CHANGELOG.md; then
       date=$(date +%Y-%m-%d)
-      python - "$version" "$date" <<'EOF'
+      python3 - "$version" "$date" <<'EOF'
 import sys
 from pathlib import Path
 version, date = sys.argv[1], sys.argv[2]
