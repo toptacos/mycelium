@@ -1,0 +1,27 @@
+name: release-notes
+description: Scan a repo for recent changes and write RELEASE_NOTES.md
+inputs:
+  repo_path:
+    default: "."
+steps:
+  - id: list
+    tool: fs_list
+    args:
+      path: "{{inputs.repo_path}}"
+
+  - id: readme
+    tool: fs_read
+    args:
+      path: "{{inputs.repo_path}}/README.md"
+
+  - id: draft
+    llm: |
+      Write concise user-facing release notes (markdown) from this listing and readme.
+      Listing: {{steps.list.output}}
+      Readme: {{steps.readme.output}}
+
+  - id: write
+    tool: fs_write
+    args:
+      path: "RELEASE_NOTES.md"
+      content: "{{steps.draft.output}}"

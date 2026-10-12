@@ -1,0 +1,34 @@
+[
+  {
+    "content": "",
+    "tool_calls": [
+      {
+        "id": "c1",
+        "name": "research_web",
+        "arguments": {
+          "url": "http://127.0.0.1:9799/",
+          "question": "what is this page for?"
+        }
+      }
+    ]
+  },
+  {
+    "content": "The page is the local fixture home page used by the research sample prompt."
+  },
+  {
+    "content": "",
+    "tool_calls": [
+      {
+        "id": "c2",
+        "name": "fs_write",
+        "arguments": {
+          "path": "research/example-com.md",
+          "content": "# Research: local fixture page\n\nsource: http://127.0.0.1:9799/\nanswer: it is the local fixture home page for the research sample.\n- served by scripts/fixture-server.py\n- used by the research sample prompt\n- deterministic fixtures keep e2e tests hermetic\n"
+        }
+      }
+    ]
+  },
+  {
+    "content": "Saved research/example-com.md. The page is the local fixture home page used by the research sample."
+  }
+]

@@ -1,0 +1,30 @@
+name: onboard-check
+description: Verify a scaffolded app exists, read its README, and write a status file
+inputs:
+  app_name:
+    default: "change-calculator"
+steps:
+  - id: list-apps
+    tool: fs_list
+    args:
+      path: "apps"
+
+  - id: readme
+    tool: fs_read
+    args:
+      path: "apps/{{inputs.app_name}}/README.md"
+
+  - id: report
+    tool: fs_write
+    args:
+      path: "ONBOARD_STATUS.md"
+      content: |
+        # Onboard check
+
+        app: {{inputs.app_name}}
+
+        ## apps/ listing
+        {{steps.list-apps.output}}
+
+        ## README
+        {{steps.readme.output}}

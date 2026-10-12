@@ -1,0 +1,20 @@
+[
+  {
+    "content": "",
+    "tool_calls": [
+      {
+        "id": "c1",
+        "name": "scaffold_app",
+        "arguments": {
+          "name": "change-calculator",
+          "template": "python-cli",
+          "description": "compute change",
+          "run_tests": true
+        }
+      }
+    ]
+  },
+  {
+    "content": "Scaffolded apps/change-calculator with 7 files: .gitignore, README.md, pyproject.toml, src/change_calculator/{__init__,cli}.py, tests/{conftest,test_cli}.py. The scaffold's own test suite PASSED."
+  }
+]

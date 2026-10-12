@@ -1,0 +1,23 @@
+[
+  {
+    "content": "",
+    "tool_calls": [
+      {
+        "id": "c1",
+        "name": "create_content",
+        "arguments": {
+          "kind": "blog",
+          "topic": "why local-first AI agents matter",
+          "audience": "backend developers",
+          "max_words": 300
+        }
+      }
+    ]
+  },
+  {
+    "content": "# Why Local-First AI Agents Matter\n\nPrivacy, ownership, and zero marginal cost. Local agents keep your code on your machine and learn without shipping your context to a third party.\n\n## The case\n\nA local-first agent runs models on your hardware, stores memory in files you can read, and talks to third-party APIs only through profiles you configured. Nothing about your workspace leaves unless a tool you enabled says so.\n\n## When cloud still wins\n\nLargest frontier models on the hardest reasoning. Route those steps to a cloud backend and keep the loop local."
+  },
+  {
+    "content": "Created content/why-local-first-ai-agents-matter-blog.md (about 120 words, cap 300)."
+  }
+]

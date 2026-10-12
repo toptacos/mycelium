@@ -1,0 +1,19 @@
+[
+  {
+    "content": "",
+    "tool_calls": [
+      {
+        "id": "c1",
+        "name": "call_api",
+        "arguments": {
+          "connection": "example",
+          "method": "GET",
+          "path": "/status"
+        }
+      }
+    ]
+  },
+  {
+    "content": "The example connection returned HTTP 200 with ok=true, region us-east-1, uptime 9042s. The service is healthy and has been up for about 2.5 hours."
+  }
+]

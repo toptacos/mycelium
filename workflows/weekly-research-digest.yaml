@@ -1,0 +1,31 @@
+name: weekly-research-digest
+description: Fetch a URL, summarize it, and save a digest note
+inputs:
+  url:
+    default: "https://example.com"
+  question:
+    default: "Summarize the key points of this page."
+steps:
+  - id: fetch
+    tool: research_web
+    args:
+      url: "{{inputs.url}}"
+      question: "{{inputs.question}}"
+
+  - id: digest
+    llm: |
+      Turn this research into a 5-bullet digest with a source line at the end.
+      Research: {{steps.fetch.output}}
+
+  - id: save
+    tool: fs_write
+    args:
+      path: "research/digest.md"
+      content: "{{steps.digest.output}}"
+
+  - id: remember
+    tool: remember
+    args:
+      text: "Weekly research digest of {{inputs.url}} saved to research/digest.md"
+      kind: fact
+      tags: ["research", "digest"]
