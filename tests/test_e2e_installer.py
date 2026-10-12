@@ -75,9 +75,27 @@ def local_origin(tmp_path: Path) -> Path:
     return origin
 
 
+def find_bash() -> str | None:
+    if sys.platform != "win32":
+        return "bash"
+    for candidate in (
+        r"C:\Program Files\Git\bin\bash.exe",
+        r"C:\Program Files (x86)\Git\bin\bash.exe",
+    ):
+        if Path(candidate).exists():
+            return candidate
+    return None
+
+
 def run_installer(
     origin: Path, tmp_path: Path, *args: str
 ) -> subprocess.CompletedProcess:
+    bash = find_bash()
+    if bash is None:
+        pytest.skip(
+            "no bash available; install.sh is POSIX "
+            "(windows uses the powershell path in docs/INSTALL.md)"
+        )
     env = dict(os.environ)
     env.update(
         {
@@ -89,7 +107,7 @@ def run_installer(
         }
     )
     return subprocess.run(
-        ["bash", str(REPO_ROOT / "install.sh"), *args],
+        [bash, str(REPO_ROOT / "install.sh"), *args],
         capture_output=True,
         text=True,
         timeout=600,
@@ -112,8 +130,17 @@ def test_installer_clones_syncs_and_installs_shim(local_origin: Path, tmp_path: 
 def test_installer_shim_runs_the_tool(local_origin: Path, tmp_path: Path):
     run_installer(local_origin, tmp_path)
     shim = tmp_path / "bin" / "mcy"
+    assert shim.exists()
+    if sys.platform != "win32":
+        assert os.access(shim, os.X_OK)
+    assert str(tmp_path / "src") in shim.read_text()
+    assert (tmp_path / "src" / "pyproject.toml").exists()
+    if sys.platform == "win32":
+        launcher = [find_bash(), str(shim)]
+    else:
+        launcher = [str(shim)]
     version = subprocess.run(
-        [str(shim), "--version"],
+        [*launcher, "--version"],
         capture_output=True,
         text=True,
         timeout=300,
@@ -122,7 +149,7 @@ def test_installer_shim_runs_the_tool(local_origin: Path, tmp_path: Path):
     assert version.returncode == 0, version.stderr
     assert "0.1.0" in version.stdout
     hello = subprocess.run(
-        [str(shim)], capture_output=True, text=True, timeout=120, cwd=str(tmp_path)
+        launcher, capture_output=True, text=True, timeout=120, cwd=str(tmp_path)
     )
     assert "shim ok" in hello.stdout
 
