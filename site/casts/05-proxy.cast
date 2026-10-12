@@ -1,0 +1,9 @@
+{"version": 2, "width": 100, "height": 28, "timestamp": 1791765733, "title": "the local proxy: OpenAI + Anthropic endpoints", "env": {"TERM": "xterm-256color", "SHELL": "/bin/bash"}}
+[0.031, "o", "\u001b[?2004h$ "]
+[0.033, "o", "uv run mcy serve --port 8787 &\r\n\u001b[?2004l\r[1] 52597\r\n\u001b[?2004h$ "]
+[2.046, "o", "sleep 2\r\n\u001b[?2004l\rmycelium proxy listening on http://127.0.0.1:8787\r\nendpoints: GET /healthz, GET /v1/models, POST /v1/chat/completions, POST /v1/messages\r\ndefault backend: local (model backend default)\r\ndrop-in for CCR/claude-code: export ANTHROPIC_BASE_URL=http://127.0.0.1:8787 ; export ANTHROPIC_AUTH_TOKEN=local\r\n\u001b[?2004h$ "]
+[2.08, "o", "curl -s http://127.0.0.1:8787/healthz\r\n\u001b[?2004l\r[proxy] 127.0.0.1 \"GET /healthz HTTP/1.1\" 200 -\r\n{\"status\": \"ok\", \"service\": \"mycelium-proxy\"}\u001b[?2004h$ "]
+[2.111, "o", "curl -s http://127.0.0.1:8787/v1/models | head -c 240\r\n\u001b[?2004l\r[proxy] 127.0.0.1 \"GET /v1/models HTTP/1.1\" 200 -\r\n{\"object\": \"list\", \"data\": [{\"id\": \"local:qwen3:0.6b\", \"object\": \"model\", \"owned_by\": \"local\"}, {\"id\": \"qwen3:0.6b\", \"object\": \"model\", \"owned_by\": \"local\"}, {\"id\": \"local:qwen2.5-coder:latest\", \"object\": \"model\", \"owned_by\": \"local\"}, {\"id\u001b[?2004h$ "]
+[3.885, "o", "curl -s -X POST http://127.0.0.1:8787/v1/chat/completions -H 'content-type: application/json' -d '{\"model\": \"qwen3:0.6b\", \"messages\": [{\"role\": \"user\", \"content\": \"Reply with exactly: cast ok\"}], \"max_tokens\": 24}'\r\n\u001b[?2004l\r[proxy] 127.0.0.1 \"POST /v1/chat/completions HTTP/1.1\" 500 -\r\n{\"error\": {\"message\": \"RuntimeError: backend local failed after 3 attempts: ConnectError: All connection attempts failed\", \"type\": \"proxy_error\"}}\u001b[?2004h$ "]
+[3.885, "o", "kill %1\r\n\u001b[?2004l\r\u001b[?2004h$ "]
+[3.887, "o", "exit\r\n\u001b[?2004l\rexit\r\n"]

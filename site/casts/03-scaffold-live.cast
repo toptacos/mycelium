@@ -1,0 +1,4 @@
+{"version": 2, "width": 100, "height": 28, "timestamp": 1791766093, "title": "scaffold an app with a 522MB model", "env": {"TERM": "xterm-256color", "SHELL": "/bin/bash"}}
+[0.022, "o", "\u001b[?2004h$ "]
+[0.58, "o", "uv run mcy --workspace workspace run \"Use the scaffold_app tool with name='cast-demo2' and template='python-cli' and run_tests=true. Report every file created and whether tests passed.\"\r\n\u001b[?2004l\r\r\nwarning: backend error: HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:11434/api/chat'\r\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404\r\n\u001b[?2004h$ "]
+[0.582, "o", "exit\r\n\u001b[?2004l\rexit\r\n"]

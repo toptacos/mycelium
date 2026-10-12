@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mycelium — plant it once. it grows.</title>
+<meta name="description" content="A local-first agent workstation: scaffold, research, content, integrations, workflows. Runs on your machine with a 522MB model.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<meta property="og:title" content="mycelium — plant it once. it grows.">
+<meta property="og:description" content="A local-first agent workstation. Runs on your machine. Remembers your project.">
+<meta property="og:image" content="assets/social-card.svg">
+<meta property="og:type" content="website">
+<style>
+  :root {
+    --ink: #0E1512; --moss: #1E3A2F; --hypha: #58B368; --spore: #F5F2E8;
+    --amber: #E8B44A; --slate: #5A6B62;
+    --sans: 'Space Grotesk', Inter, ui-sans-serif, system-ui, sans-serif;
+    --body: Inter, ui-sans-serif, system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--ink); color: var(--spore); font-family: var(--body); line-height: 1.6; }
+  code, .mono { font-family: var(--mono); }
+  a { color: var(--hypha); }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; }
+  nav .links a { margin-left: 28px; color: var(--slate); text-decoration: none; font-size: 15px; }
+  nav .links a:hover { color: var(--spore); }
+  .logo { display: flex; align-items: center; gap: 12px; font-family: var(--sans); font-weight: 600; font-size: 20px; }
+
+  header.hero { padding: 88px 0 64px; background:
+    radial-gradient(1000px 500px at 85% -10%, rgba(88,179,104,.14), transparent 60%),
+    radial-gradient(700px 400px at 5% 110%, rgba(232,180,74,.08), transparent 60%); }
+  .hero h1 { font-family: var(--sans); font-size: clamp(44px, 7vw, 76px); line-height: 1.04; letter-spacing: -1.5px; font-weight: 600; max-width: 14ch; }
+  .hero h1 em { font-style: normal; color: var(--hypha); }
+  .hero p.sub { margin: 24px 0 36px; font-size: 20px; color: var(--slate); max-width: 56ch; }
+  .install { display: flex; align-items: center; gap: 12px; background: var(--moss); border: 1px solid rgba(88,179,104,.25);
+    border-radius: 12px; padding: 14px 18px; font-family: var(--mono); font-size: 15px; width: fit-content; max-width: 100%; overflow-x: auto; }
+  .install .pill { color: var(--amber); }
+  .cta-row { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
+  .btn { font-family: var(--sans); font-weight: 600; font-size: 16px; padding: 13px 26px; border-radius: 10px; text-decoration: none; }
+  .btn.primary { background: var(--hypha); color: var(--ink); }
+  .btn.ghost { border: 1px solid var(--slate); color: var(--spore); }
+
+  section { padding: 72px 0; border-top: 1px solid rgba(245,242,232,.07); }
+  section h2 { font-family: var(--sans); font-size: 36px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 14px; }
+  section .lede { color: var(--slate); font-size: 18px; max-width: 68ch; margin-bottom: 44px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .card { background: var(--moss); border: 1px solid rgba(88,179,104,.14); border-radius: 14px; padding: 24px; }
+  .card h3 { font-family: var(--sans); font-size: 19px; margin-bottom: 8px; }
+  .card p { color: var(--slate); font-size: 15px; }
+  .card .tag { font-family: var(--mono); font-size: 12px; color: var(--amber); display: block; margin-bottom: 10px; }
+
+  .casts { display: grid; gap: 28px; }
+  .cast { background: #0A0F0D; border: 1px solid rgba(88,179,104,.16); border-radius: 14px; overflow: hidden; }
+  .cast .label { display: flex; justify-content: space-between; padding: 12px 18px; font-family: var(--mono); font-size: 13px; color: var(--slate); border-bottom: 1px solid rgba(88,179,104,.1); }
+  .cast .label b { color: var(--spore); font-weight: 500; }
+
+  .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
+  .metric { text-align: left; padding: 22px; border-left: 2px solid var(--hypha); }
+  .metric .n { font-family: var(--sans); font-size: 40px; font-weight: 600; color: var(--amber); }
+  .metric .l { color: var(--slate); font-size: 14px; margin-top: 4px; }
+
+  footer { padding: 48px 0 72px; color: var(--slate); font-size: 14px; border-top: 1px solid rgba(245,242,232,.07); }
+  footer .cols { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+  footer a { color: var(--slate); text-decoration: none; display: block; margin-top: 6px; }
+  footer a:hover { color: var(--spore); }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/asciinema-player@3.7.1/dist/bundle/asciinema-player.css">
+</head>
+<body>
+
+<div class="wrap">
+  <nav>
+    <div class="logo"><img src="assets/logo-mark.svg" width="34" height="34" alt=""><span>mycelium</span></div>
+    <div class="links">
+      <a href="#features">features</a>
+      <a href="#casts">screencasts</a>
+      <a href="#numbers">numbers</a>
+      <a href="https://github.com/toptacos/mycelium">github</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <h1>The part that works is the part you <em>don't</em> see.</h1>
+    <p class="sub">mycelium is a local-first agent workstation. It scaffolds apps, researches the web,
+       writes content, calls your APIs, and runs multi-step workflows — powered by a 522MB model
+       that lives on your machine.</p>
+    <div class="install"><span class="pill">$</span><span>curl -fsSL https://mycelium.topta.co/mcy | sh</span></div>
+    <div class="cta-row">
+      <a class="btn primary" href="https://github.com/toptacos/mycelium">Read the docs</a>
+      <a class="btn ghost" href="#casts">Watch it run</a>
+    </div>
+  </header>
+
+  <section id="features">
+    <h2>Roots, not rentals.</h2>
+    <p class="lede">Five capabilities, one small binary-sized dependency set, zero subscriptions.
+       Cloud models are optional adapters — the loop itself never leaves your machine.</p>
+    <div class="grid">
+      <div class="card"><span class="tag">scaffold</span><h3>Apps that pass their own tests</h3>
+        <p>Four templates, from Python CLI to FastAPI service. The scaffold's test suite actually runs.</p></div>
+      <div class="card"><span class="tag">research</span><h3>Fetch, ground, answer</h3>
+        <p>Pulls a page, strips it, and answers strictly from it — with the source URL recorded.</p></div>
+      <div class="card"><span class="tag">content</span><h3>Drafts that respect caps</h3>
+        <p>Blog, README, newsletter, outline, tutorial, changelog. Word limits are enforced, not suggested.</p></div>
+      <div class="card"><span class="tag">connect</span><h3>Your APIs, your tokens</h3>
+        <p>Connection profiles in TOML. Tokens are read from the environment at call time and never logged.</p></div>
+      <div class="card"><span class="tag">workflows</span><h3>Steps that resume</h3>
+        <p>YAML workflows with variable passing, dry-run, and checkpoints — pick up where it failed.</p></div>
+      <div class="card"><span class="tag">remember</span><h3>It learns as it goes</h3>
+        <p>Every run is distilled into memory and recalled next time. Context is budgeted and compacted.</p></div>
+    </div>
+  </section>
+
+  <section id="casts">
+    <h2>Watch it run.</h2>
+    <p class="lede">Real sessions, real outputs — recorded as asciinema casts. The 522MB-model
+       scaffold takes about six minutes on a CPU-only laptop. That's the honest number.</p>
+    <div class="casts">
+      <div class="cast"><div class="label"><b>install &amp; doctor</b><span>~6s</span></div>
+        <div id="cast-01"></div></div>
+      <div class="cast"><div class="label"><b>scaffold an app with the local model</b><span>~6min · live</span></div>
+        <div id="cast-03"></div></div>
+      <div class="cast"><div class="label"><b>run a workflow end to end</b><span>~3s</span></div>
+        <div id="cast-04"></div></div>
+      <div class="cast"><div class="label"><b>the proxy — drop-in for ccr</b><span>~10s</span></div>
+        <div id="cast-05"></div></div>
+    </div>
+  </section>
+
+  <section id="numbers">
+    <h2>Numbers we measured.</h2>
+    <p class="lede">Intel MacBook, CPU-only, October 2026. Full methodology and gaps are in
+       <a href="https://github.com/toptacos/mycelium/blob/main/docs/BENCHMARKS.md">docs/BENCHMARKS.md</a>.</p>
+    <div class="metrics">
+      <div class="metric"><div class="n">522MB</div><div class="l">default model, pulled with ollama</div></div>
+      <div class="metric"><div class="n">3</div><div class="l">runtime dependencies (httpx, pyyaml, rich)</div></div>
+      <div class="metric"><div class="n">139</div><div class="l">tests; suite runs in ~26 seconds</div></div>
+      <div class="metric"><div class="n">1.6s</div><div class="l">proxy round-trip to the local model</div></div>
+      <div class="metric"><div class="n">5</div><div class="l">backends: local, openrouter, gemini, deepseek, anthropic</div></div>
+      <div class="metric"><div class="n">0</div><div class="l">dollars required to run</div></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="cols">
+      <div>
+        <div class="logo" style="font-size:16px"><img src="assets/logo-mark.svg" width="26" height="26" alt=""> mycelium</div>
+        <p style="margin-top:10px">Apache-2.0 · toptacos</p>
+      </div>
+      <div><b>Product</b><a href="#features">features</a><a href="#casts">screencasts</a><a href="#numbers">benchmarks</a></div>
+      <div><b>Docs</b><a href="https://github.com/toptacos/mycelium">repository</a><a href="https://github.com/toptacos/mycelium/blob/main/docs/ARCHITECTURE.md">architecture</a><a href="https://github.com/toptacos/mycelium/blob/main/docs/COMPARISON.md">comparison</a></div>
+      <div><b>Install</b><a href="#">mycelium.topta.co/mcy</a><a href="https://github.com/toptacos/mycelium/blob/main/docs/INSTALL.md">per-OS guides</a></div>
+    </div>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/asciinema-player@3.7.1/dist/bundle/asciinema-player.min.js"></script>
+<script>
+  const casts = { "cast-01": "casts/01-install-doctor.cast", "cast-03": "casts/03-scaffold-live.cast",
+                  "cast-04": "casts/04-workflow.cast", "cast-05": "casts/05-proxy.cast" };
+  for (const [id, src] of Object.entries(casts)) {
+    const el = document.getElementById(id);
+    if (el && window.AsciinemaPlayer) {
+      AsciinemaPlayer.create(src, el, { theme: "mycelium", autoPlay: false, fit: "width" });
+    }
+  }
+</script>
+</body>
+</html>
