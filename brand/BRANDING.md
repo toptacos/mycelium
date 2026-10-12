@@ -1,6 +1,6 @@
 # Mycelium Brand Guidelines
 
-Version 1.0 — October 2026
+Version 2.0 — October 2026 (psychedelic rebrand)
 
 ## 1. The name
 
@@ -9,8 +9,8 @@ that grows, connects, shares nutrients, and learns from its environment. The
 mushroom you see is just the fruiting body — a brief, visible surface of a much
 larger living system.
 
-That is the product. `mcy` is the fruiting body you call on the command line;
-the work happens underneath, on your machine, where your data never leaves.
+That is the product. `mcy` is the mushroom you call on the command line; the
+roots, threads, and memory live on your machine, where your data never leaves.
 
 ### Why it fits (the canonical rationale)
 
@@ -51,12 +51,12 @@ hardware with a 522MB model.
 3. **It remembers.** Memory, distilled sessions, and context budgeting mean the
    tenth run is better than the first.
 4. **Small enough to actually run.** 522MB model, three runtime dependencies,
-   ~26-second test suite. Efficiency is a feature, not a compromise.
+   ~39-second core test suite. Efficiency is a feature, not a compromise.
 
 ### Proof points (use these, in this order)
 
 - 5 backends: local Ollama, OpenRouter, Gemini, DeepSeek, Anthropic
-- 139 tests, 3 OS matrix in CI, VM guides for Ubuntu/Fedora/Windows
+- 157 tests, 3-OS CI matrix, VM guides for Ubuntu/Fedora/Windows
 - 5 sample-prompt scenarios with asserted artifacts
 - Scaffolded app tests actually run and pass
 - Proxy round-trip measured at 1.6s on CPU
@@ -78,62 +78,106 @@ hardware with a 522MB model.
 | "The future of development is here" | "Plant it once. It grows." |
 | "Seamlessly integrate with 3rd-party APIs" | "Point it at an API you already use" |
 
-## 4. Logo
+## 4. Visual identity: bioluminescent psychedelia
+
+The brand is **psychedelic meets terminal**: Fillmore poster saturation on a
+near-black violet void, with bioluminescent glow. The visual says "trip"; the
+docs say "measured on this machine". That tension is the identity.
+
+### The mark: the badass mushroom
+
+An animated spotted mushroom on the magenta→violet→cyan gradient:
+
+- **Cap** carries the full spectrum gradient; spots are void-purple with cyan
+  pupils (classic psychedelic iconography).
+- **Stem** is cream fading to spore-amber, with a soft glow base.
+- **Mycelium threads** in acid lime ripple at the base — the visible mushroom
+  literally grows out of the network.
+- **Spores** drift upward on a loop.
+- **Motion**: the cap breathes (subtle scale), the glow pulses, threads
+  ripple, spores rise. SMIL animations in the SVG masters; ANSI truecolor in
+  the terminal.
 
 Masters live in `brand/`:
 
 | File | Use |
 |---|---|
-| `logo-mark.svg` | app icon, avatar, favicon source |
+| `logo-mark.svg` | app icon, avatar, favicon source (animated) |
 | `logo-horizontal.svg` | README header, site nav, slides |
 | `social-card.svg` | OG/Twitter card (1200x630) |
-| `favicon.svg` | browser tab |
+| `favicon.svg` | browser tab (simplified, animated) |
 
-### Construction
+Minimum size 16px (mark), 96px (horizontal lockup). Clear space equals the
+height of one node on all sides. Do not rotate, recolors outside the palette,
+add drop shadows, or place on busy imagery without the void backdrop.
 
-An asymmetric node network (5 nodes, 6 curved edges) on a 64x64 grid. One
-node — the *fruiting body* — is amber; the rest are hypha-green. Primary path
-carries 3px weight; secondary hyphae 1.5px. Minimum size 16px (mark),
-96px (horizontal lockup). Clear space equals the height of one node on all
-sides. Do not rotate, recolor outside the palette, add effects, or place on
-busy imagery without the ink backdrop.
+### The terminal bloom
 
-## 5. Color
+`mcy` opens with a ~1.4-second mushroom bloom: the cap grows in gradient rows,
+the stem descends, threads spread, spores drift, and the gradient wordmark
+`mycelium · plant it once, it grows` lands. It is **motion with manners**:
 
-| Token | Hex | Use |
-|---|---|---|
-| Substrate Ink | `#0E1512` | primary dark background, terminal default |
-| Deep Moss | `#1E3A2F` | cards, panels on dark |
-| Hypha Green | `#58B368` | primary accent, links, focus rings |
-| Spore White | `#F5F2E8` | primary light background, body text on dark |
-| Fruiting Amber | `#E8B44A` | the highlighted node; emphasis; CTAs |
-| Slate | `#5A6B62` | secondary text, captions |
+- TTY only — pipes, CI, and tests never see it.
+- `--no-splash` flag or `MYCELIUM_NO_SPLASH=1` disables it.
+- `--json` runs skip it so machine output stays clean.
+- Implementation: `mycelium/splash.py` (frames are unit-tested).
 
-Dark-first. The product lives in a terminal; dark is the native habitat.
+### Palette
 
-## 6. Typography
+| Token | Hex | RGB | Use |
+|---|---|---|---|
+| Void | `#0B0014` | 11,0,20 | primary background, terminal base |
+| Magenta | `#FF2E88` | 255,46,136 | gradient start, primary accent, links |
+| Violet | `#8B2FC9` | 139,47,201 | gradient middle, panels |
+| Cyan | `#22D3EE` | 34,211,238 | gradient end, spot pupils, focus |
+| Lime | `#A3E635` | 163,230,53 | mycelium threads, success states |
+| Amber | `#FBBF24` | 251,191,36 | spores, emphasis, CTAs |
+| Cream | `#FFF3E2` | 255,243,226 | body text on dark, stem |
+
+Dark-first, always. The product lives in a terminal; dark is the native
+habitat. Accessibility: cream on void passes AAA; magenta on void passes AA
+for large text; never use violet for body text on void (AA large only).
+
+### Palette rules
+
+- Gradients run **magenta → violet → cyan**, always in that order (hot to
+  cold = growth direction).
+- Lime and amber are **accents only** — never more than 15% of any surface.
+- One glow source per composition.
+- Terminal UI (rich tables, prompts) keeps its structure; do not fight rich's
+  defaults, but new surfaces use the palette.
+
+### Typography
 
 - **Display / headings:** Space Grotesk (fallback: `ui-sans-serif, system-ui`)
 - **Body:** Inter (fallback: system sans)
 - **Code / terminal:** JetBrains Mono (fallback: `ui-monospace, SFMono-Regular`)
 
 All three are open-licensed (OFL); the site self-hosts woff2 subsets. Terminal
-output in marketing materials is always JetBrains Mono on Substrate Ink.
+output in marketing materials is always JetBrains Mono on Void.
 
-## 7. Applications
+## 5. Applications
 
-- **Terminal UI** (already shipped): rich tables, `mcy` prompt, event lines.
-  Colors drift from the palette; do not fight it.
-- **README header:** horizontal lockup, max 240px wide.
-- **Site:** dark hero with the mark animating (nodes pulse along edges), then
-  the cast player. Never autoplay audio; casts autoplay only when in view.
-- **Social cards:** social-card.svg template; headline in Space Grotesk,
-  one metric in Fruiting Amber.
+- **CLI**: the bloom, then rich tables. Wordmark line under the final frame.
+- **README**: horizontal lockup, max 240px wide.
+- **Site**: dark hero with the animated mark, cast player, measured-numbers
+  band. Never autoplay audio; casts autoplay only when in view.
+- **Social cards**: `social-card.svg` template; headline in Space Grotesk,
+  one metric in Fruiting Amber. Rasterize to PNG at 1200x630 for Twitter.
+- **Swag / stickers**: the mark on Void; the mushroom face is the sticker.
 
-## 8. Taglines (approved, in order)
+## 6. Taglines (approved, in order)
 
 1. Plant it once. It grows.
 2. Your agent, grown local.
 3. Roots in your machine. Reach into everything.
 4. The network under your stack.
 5. A 522MB model that scaffolds, researches, and remembers.
+
+## 7. Brand misuses (the wall of shame)
+
+- The mushroom in corporate blue, or on a white background without the void.
+- The metaphor in every sentence — once per section, precisely.
+- "Disrupting", "revolutionary", "10x", "magic".
+- Cloning another project's palette while keeping our name.
+- Any dark pattern in the bloom (it must be skippable, and it is).
