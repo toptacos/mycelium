@@ -12,8 +12,8 @@
 <meta property="og:type" content="website">
 <style>
   :root {
-    --ink: #0E1512; --moss: #1E3A2F; --hypha: #58B368; --spore: #F5F2E8;
-    --amber: #E8B44A; --slate: #5A6B62;
+    --ink: #0B0014; --moss: #1E0B36; --hypha: #FF2E88; --spore: #FFF3E2;
+    --amber: #FBBF24; --slate: #C4B5FD; --violet: #8B2FC9; --cyan: #22D3EE; --lime: #A3E635;
     --sans: 'Space Grotesk', Inter, ui-sans-serif, system-ui, sans-serif;
     --body: Inter, ui-sans-serif, system-ui, sans-serif;
     --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -21,7 +21,7 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: var(--ink); color: var(--spore); font-family: var(--body); line-height: 1.6; }
   code, .mono { font-family: var(--mono); }
-  a { color: var(--hypha); }
+  a { color: var(--cyan); }
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
   nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; }
@@ -30,40 +30,40 @@
   .logo { display: flex; align-items: center; gap: 12px; font-family: var(--sans); font-weight: 600; font-size: 20px; }
 
   header.hero { padding: 88px 0 64px; background:
-    radial-gradient(1000px 500px at 85% -10%, rgba(88,179,104,.14), transparent 60%),
-    radial-gradient(700px 400px at 5% 110%, rgba(232,180,74,.08), transparent 60%); }
+    radial-gradient(1000px 500px at 85% -10%, rgba(255,46,136,.18), transparent 60%),
+    radial-gradient(700px 420px at 5% 110%, rgba(34,211,238,.10), transparent 60%); }
   .hero h1 { font-family: var(--sans); font-size: clamp(44px, 7vw, 76px); line-height: 1.04; letter-spacing: -1.5px; font-weight: 600; max-width: 14ch; }
-  .hero h1 em { font-style: normal; color: var(--hypha); }
+  .hero h1 em { font-style: normal; background: linear-gradient(90deg, var(--hypha), var(--violet), var(--cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .hero p.sub { margin: 24px 0 36px; font-size: 20px; color: var(--slate); max-width: 56ch; }
-  .install { display: flex; align-items: center; gap: 12px; background: var(--moss); border: 1px solid rgba(88,179,104,.25);
-    border-radius: 12px; padding: 14px 18px; font-family: var(--mono); font-size: 15px; width: fit-content; max-width: 100%; overflow-x: auto; }
-  .install .pill { color: var(--amber); }
+  .install { display: flex; align-items: center; gap: 12px; background: var(--moss); border: 1px solid rgba(255,46,136,.35);
+    border-radius: 12px; padding: 14px 18px; font-family: var(--mono); font-size: 15px; width: fit-content; max-width: 100%; overflow-x: auto; box-shadow: 0 0 32px rgba(255,46,136,.15); }
+  .install .pill { color: var(--lime); }
   .cta-row { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
   .btn { font-family: var(--sans); font-weight: 600; font-size: 16px; padding: 13px 26px; border-radius: 10px; text-decoration: none; }
-  .btn.primary { background: var(--hypha); color: var(--ink); }
-  .btn.ghost { border: 1px solid var(--slate); color: var(--spore); }
+  .btn.primary { background: linear-gradient(90deg, var(--hypha), var(--violet)); color: var(--spore); box-shadow: 0 0 24px rgba(255,46,136,.35); }
+  .btn.ghost { border: 1px solid var(--violet); color: var(--spore); }
 
-  section { padding: 72px 0; border-top: 1px solid rgba(245,242,232,.07); }
+  section { padding: 72px 0; border-top: 1px solid rgba(255,46,136,.12); }
   section h2 { font-family: var(--sans); font-size: 36px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 14px; }
   section .lede { color: var(--slate); font-size: 18px; max-width: 68ch; margin-bottom: 44px; }
 
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-  .card { background: var(--moss); border: 1px solid rgba(88,179,104,.14); border-radius: 14px; padding: 24px; }
+  .card { background: var(--moss); border: 1px solid rgba(139,47,201,.35); border-radius: 14px; padding: 24px; }
   .card h3 { font-family: var(--sans); font-size: 19px; margin-bottom: 8px; }
   .card p { color: var(--slate); font-size: 15px; }
-  .card .tag { font-family: var(--mono); font-size: 12px; color: var(--amber); display: block; margin-bottom: 10px; }
+  .card .tag { font-family: var(--mono); font-size: 12px; color: var(--lime); display: block; margin-bottom: 10px; }
 
   .casts { display: grid; gap: 28px; }
-  .cast { background: #0A0F0D; border: 1px solid rgba(88,179,104,.16); border-radius: 14px; overflow: hidden; }
-  .cast .label { display: flex; justify-content: space-between; padding: 12px 18px; font-family: var(--mono); font-size: 13px; color: var(--slate); border-bottom: 1px solid rgba(88,179,104,.1); }
+  .cast { background: #07000E; border: 1px solid rgba(139,47,201,.4); border-radius: 14px; overflow: hidden; }
+  .cast .label { display: flex; justify-content: space-between; padding: 12px 18px; font-family: var(--mono); font-size: 13px; color: var(--slate); border-bottom: 1px solid rgba(255,46,136,.2); }
   .cast .label b { color: var(--spore); font-weight: 500; }
 
   .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
   .metric { text-align: left; padding: 22px; border-left: 2px solid var(--hypha); }
-  .metric .n { font-family: var(--sans); font-size: 40px; font-weight: 600; color: var(--amber); }
+  .metric .n { font-family: var(--sans); font-size: 40px; font-weight: 600; background: linear-gradient(90deg, var(--amber), var(--hypha)); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .metric .l { color: var(--slate); font-size: 14px; margin-top: 4px; }
 
-  footer { padding: 48px 0 72px; color: var(--slate); font-size: 14px; border-top: 1px solid rgba(245,242,232,.07); }
+  footer { padding: 48px 0 72px; color: var(--slate); font-size: 14px; border-top: 1px solid rgba(255,46,136,.12); }
   footer .cols { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
   footer a { color: var(--slate); text-decoration: none; display: block; margin-top: 6px; }
   footer a:hover { color: var(--spore); }
@@ -87,11 +87,11 @@
     <h1>The part that works is the part you <em>don't</em> see.</h1>
     <p class="sub">mycelium is a local-first agent workstation. It scaffolds apps, researches the web,
        writes content, calls your APIs, and runs multi-step workflows — powered by a 522MB model
-       that lives on your machine.</p>
+       that lives on your machine. Watch it bloom when it starts.</p>
     <div class="install"><span class="pill">$</span><span>curl -fsSL https://mycelium.topta.co/mcy | sh</span></div>
     <div class="cta-row">
       <a class="btn primary" href="https://github.com/toptacos/mycelium">Read the docs</a>
-      <a class="btn ghost" href="#casts">Watch it run</a>
+      <a class="btn ghost" href="#casts">Watch it bloom</a>
     </div>
   </header>
 
@@ -119,7 +119,11 @@
     <h2>Watch it run.</h2>
     <p class="lede">Real sessions, real outputs — recorded as asciinema casts. The 522MB-model
        scaffold takes about six minutes on a CPU-only laptop. That's the honest number.</p>
+    <p class="lede" style="margin-top:-24px">The mushroom blooms every time <code class="mono">mcy</code> starts —
+       <code class="mono">--no-splash</code> or <code class="mono">MYCELIUM_NO_SPLASH=1</code> skips it.</p>
     <div class="casts">
+      <div class="cast"><div class="label"><b>the startup bloom</b><span>~4s</span></div>
+        <div id="cast-00"></div></div>
       <div class="cast"><div class="label"><b>install &amp; doctor</b><span>~6s</span></div>
         <div id="cast-01"></div></div>
       <div class="cast"><div class="label"><b>scaffold an app with the local model</b><span>~6min · live</span></div>
@@ -160,7 +164,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/asciinema-player@3.7.1/dist/bundle/asciinema-player.min.js"></script>
 <script>
-  const casts = { "cast-01": "casts/01-install-doctor.cast", "cast-03": "casts/03-scaffold-live.cast",
+  const casts = { "cast-00": "casts/00-splash.cast", "cast-01": "casts/01-install-doctor.cast", "cast-03": "casts/03-scaffold-live.cast",
                   "cast-04": "casts/04-workflow.cast", "cast-05": "casts/05-proxy.cast" };
   for (const [id, src] of Object.entries(casts)) {
     const el = document.getElementById(id);
