@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640" role="img" aria-label="mycelium">
+  <title>mycelium — repo banner</title>
+  <defs>
+    <linearGradient id="b-cap" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF2E88"/><stop offset=".45" stop-color="#8B2FC9"/><stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+    <radialGradient id="b-shine" cx=".38" cy=".28" r=".45">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".8"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="b-stem" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF3E2"/><stop offset="1" stop-color="#FBBF24"/>
+    </linearGradient>
+    <linearGradient id="b-word" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FF2E88"/><stop offset=".55" stop-color="#8B2FC9"/><stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+    <radialGradient id="b-glow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FF2E88" stop-opacity=".28"/><stop offset="1" stop-color="#FF2E88" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="b-glow2" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#34D399" stop-opacity=".14"/><stop offset="1" stop-color="#34D399" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="b-grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0 L0 0 0 48" fill="none" stroke="#8B2FC9" stroke-opacity=".12" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="640" fill="#0B0014"/>
+  <rect width="1280" height="640" fill="url(#b-grid)"/>
+  <circle cx="1080" cy="120" r="380" fill="url(#b-glow)"/>
+  <circle cx="180" cy="580" r="320" fill="url(#b-glow2)"/>
+
+  <g transform="translate(112,148) scale(4.3)">
+    <circle cx="32" cy="28" r="23" fill="url(#b-glow)"/>
+    <g>
+      <path d="M32 41 C22 41 11 34 11 24 C11 15.5 20 9 32 9 C44 9 53 15.5 53 24 C53 34 42 41 32 41 Z" fill="url(#b-cap)"/>
+      <path d="M32 41 C22 41 11 34 11 24 C11 15.5 20 9 32 9 C44 9 53 15.5 53 24 C53 34 42 41 32 41 Z" fill="url(#b-shine)"/>
+      <g fill="#0B0014" opacity=".9">
+        <circle cx="21" cy="21" r="4"/><circle cx="39" cy="18" r="3.1"/><circle cx="46" cy="27" r="2.5"/><circle cx="26" cy="30" r="2.2"/>
+      </g>
+      <g fill="#22D3EE">
+        <circle cx="21" cy="21" r="1.7"/><circle cx="39" cy="18" r="1.3"/><circle cx="46" cy="27" r="1.05"/><circle cx="26" cy="30" r=".9"/>
+      </g>
+      <path d="M28 40 L36 40 L34.2 55.5 L29.8 55.5 Z" fill="url(#b-stem)"/>
+      <path d="M27.8 45 Q32 47.5 36.2 45 L36 43.5 Q32 46 28 43.5 Z" fill="#FFF3E2" opacity=".9"/>
+      <ellipse cx="32" cy="55.5" rx="8" ry="1.8" fill="#FFF3E2" opacity=".9"/>
+      <g stroke-linecap="round" fill="none">
+        <path d="M22 55 Q32 60 42 55" stroke="#A3E635" stroke-width="2"/>
+        <path d="M15 58 Q32 53 49 58" stroke="#A3E635" stroke-width="1.4" opacity=".55"/>
+      </g>
+    </g>
+    <g fill="#FBBF24">
+      <circle cx="17" cy="14" r="1.5"/><circle cx="47" cy="18" r="1.2"/><circle cx="33" cy="7" r="1"/>
+    </g>
+  </g>
+
+  <text x="460" y="290" font-family="'Space Grotesk','Inter',sans-serif" font-size="96" font-weight="600" fill="url(#b-word)" letter-spacing="-2">mycelium</text>
+  <text x="462" y="352" font-family="'Space Grotesk','Inter',sans-serif" font-size="34" fill="#C4B5FD">local-first agent workstation</text>
+  <text x="462" y="404" font-family="'Inter',sans-serif" font-size="24" fill="#5A6B62">scaffold · research · content · integrations · workflows — on your machine</text>
+  <g font-family="'JetBrains Mono',ui-monospace,monospace" font-size="20">
+    <rect x="462" y="440" width="270" height="48" rx="10" fill="#1E0B36" stroke="#8B2FC9" stroke-opacity=".4"/>
+    <text x="484" y="471" fill="#A3E635">curl … /mcy | sh</text>
+  </g>
+</svg>

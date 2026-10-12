@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 72" width="340" height="72" role="img" aria-label="mycelium">
+  <title>mycelium wordmark</title>
+  <defs>
+    <linearGradient id="w-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FF2E88"/>
+      <stop offset=".55" stop-color="#8B2FC9"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+      <animate attributeName="x1" values="0;1;0" dur="8s" repeatCount="indefinite"/>
+    </linearGradient>
+  </defs>
+  <text x="0" y="52" font-family="'Space Grotesk','Inter',ui-sans-serif,system-ui,sans-serif" font-size="52" font-weight="600" fill="url(#w-grad)" letter-spacing="-1.5">mycelium</text>
+</svg>

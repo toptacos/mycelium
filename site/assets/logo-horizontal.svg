@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 64" width="300" height="64" role="img" aria-label="mycelium">
+  <title>mycelium</title>
+  <defs>
+    <linearGradient id="h-cap" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF2E88"/>
+      <stop offset=".45" stop-color="#8B2FC9"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+    <linearGradient id="h-cap-deep" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#8B2FC9"/>
+      <stop offset="1" stop-color="#22D3EE" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="h-shine" cx=".38" cy=".28" r=".45">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".85"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="h-stem" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF3E2"/>
+      <stop offset="1" stop-color="#FBBF24"/>
+    </linearGradient>
+    <radialGradient id="h-glow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FF2E88" stop-opacity=".5"/>
+      <stop offset="1" stop-color="#FF2E88" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="h-word" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FF2E88"/>
+      <stop offset=".55" stop-color="#8B2FC9"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="28" r="23" fill="url(#h-glow)">
+    <animate attributeName="r" values="21;26;21" dur="3.4s" repeatCount="indefinite"/>
+  </circle>
+  <g stroke-linecap="round" fill="none">
+    <path d="M22 55 Q32 60 42 55" stroke="#A3E635" stroke-width="2">
+      <animate attributeName="d" dur="2.6s" repeatCount="indefinite"
+        values="M22 55 Q32 60 42 55; M22 55 Q32 62 42 55; M22 55 Q32 60 42 55"/>
+    </path>
+    <path d="M15 58 Q32 53 49 58" stroke="#A3E635" stroke-width="1.4" opacity=".55"/>
+  </g>
+  <g>
+    <g>
+      <animateTransform attributeName="transform" type="scale" values="1 1;1.045 .955;1 1" dur="2.9s" repeatCount="indefinite" additive="sum"/>
+      <path d="M32 41 C22 41 11 34 11 24 C11 15.5 20 9 32 9 C44 9 53 15.5 53 24 C53 34 42 41 32 41 Z" fill="url(#h-cap)"/>
+      <path d="M32 41 C22 41 11 34 11 24 C11 15.5 20 9 32 9 C44 9 53 15.5 53 24 C53 34 42 41 32 41 Z" fill="url(#h-cap-deep)" opacity=".45"/>
+      <path d="M32 41 C22 41 11 34 11 24 C11 15.5 20 9 32 9 C44 9 53 15.5 53 24 C53 34 42 41 32 41 Z" fill="url(#h-shine)"/>
+      <g stroke="#0B0014" stroke-width=".8" opacity=".45" fill="none">
+        <path d="M17 33 Q32 43 47 33"/>
+      </g>
+      <g>
+        <circle cx="21" cy="21" r="4" fill="#0B0014" opacity=".9"/><circle cx="21" cy="21" r="1.7" fill="#22D3EE"/>
+        <circle cx="39" cy="18" r="3.1" fill="#0B0014" opacity=".9"/><circle cx="39" cy="18" r="1.3" fill="#22D3EE"/>
+        <circle cx="46" cy="27" r="2.5" fill="#0B0014" opacity=".9"/><circle cx="46" cy="27" r="1.05" fill="#22D3EE"/>
+        <circle cx="26" cy="30" r="2.2" fill="#0B0014" opacity=".9"/><circle cx="26" cy="30" r=".9" fill="#22D3EE"/>
+      </g>
+    </g>
+    <path d="M28 40 L36 40 L34.2 55.5 L29.8 55.5 Z" fill="url(#h-stem)"/>
+    <path d="M27.8 45 Q32 47.5 36.2 45 L36 43.5 Q32 46 28 43.5 Z" fill="#FFF3E2" opacity=".9"/>
+    <ellipse cx="32" cy="55.5" rx="8" ry="1.8" fill="#FFF3E2" opacity=".9"/>
+  </g>
+  <g fill="#FBBF24">
+    <circle cx="17" cy="14" r="1.5">
+      <animate attributeName="cy" values="16;2;16" dur="3.2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;.95;0" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="47" cy="18" r="1.2">
+      <animate attributeName="cy" values="20;5;20" dur="3.9s" begin="0.6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;.85;0" dur="3.9s" begin="0.6s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <text x="78" y="43" font-family="'Space Grotesk','Inter',ui-sans-serif,system-ui,sans-serif" font-size="30" font-weight="600" fill="url(#h-word)" letter-spacing="-0.5">mycelium</text>
+</svg>

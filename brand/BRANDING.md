@@ -1,6 +1,6 @@
 # Mycelium Brand Guidelines
 
-Version 2.0 — October 2026 (psychedelic rebrand)
+Version 2.1 — October 2026 (psychedelic rebrand, asset set + brand kit)
 
 ## 1. The name
 
@@ -104,8 +104,16 @@ Masters live in `brand/`:
 |---|---|
 | `logo-mark.svg` | app icon, avatar, favicon source (animated) |
 | `logo-horizontal.svg` | README header, site nav, slides |
+| `wordmark.svg` | text lockups, footers, merch |
 | `social-card.svg` | OG/Twitter card (1200x630) |
+| `banner.svg` | repo social banner (1280x640) |
 | `favicon.svg` | browser tab (simplified, animated) |
+| `png/` | PNG renders (og-image 1200x630, banner, logo sizes, favicon.ico) |
+
+File-level reference, anatomy, regeneration commands, and motion specs:
+[`brand/ASSETS.md`](ASSETS.md). The interactive brand kit (palette with
+copy-to-clipboard, do/don't rules, the bloom) ships at
+`site/brand.html` — deployed at `<domain>/brand.html`.
 
 Minimum size 16px (mark), 96px (horizontal lockup). Clear space equals the
 height of one node on all sides. Do not rotate, recolors outside the palette,

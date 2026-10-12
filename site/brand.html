@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mycelium brand kit</title>
+<meta name="description" content="The mycelium brand kit: logos, palette, typography, motion, and usage rules.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<style>
+  :root {
+    --void: #0B0014; --magenta: #FF2E88; --violet: #8B2FC9; --cyan: #22D3EE;
+    --lime: #A3E635; --amber: #FBBF24; --cream: #FFF3E2; --slate: #5A6B62;
+    --panel: #1E0B36; --lav: #C4B5FD;
+    --sans: 'Space Grotesk', Inter, ui-sans-serif, system-ui, sans-serif;
+    --body: Inter, ui-sans-serif, system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--void); color: var(--cream); font-family: var(--body); line-height: 1.6; }
+  code, .mono { font-family: var(--mono); }
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { color: var(--magenta); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; }
+  nav .links a { margin-left: 24px; color: var(--lav); font-size: 14px; }
+  .logo { display: flex; align-items: center; gap: 12px; font-family: var(--sans); font-weight: 600; font-size: 19px; }
+
+  header.hero { text-align: center; padding: 72px 0 56px;
+    background: radial-gradient(800px 400px at 50% -10%, rgba(255,46,136,.16), transparent 65%); }
+  .hero img.mark { width: 132px; height: 132px; }
+  .hero h1 { font-family: var(--sans); font-size: clamp(40px, 6vw, 64px); font-weight: 600; letter-spacing: -1px; margin: 20px 0 10px;
+    background: linear-gradient(90deg, var(--magenta), var(--violet), var(--cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero p { color: var(--lav); font-size: 18px; max-width: 58ch; margin: 0 auto 28px; }
+  .dlrow { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn { font-family: var(--sans); font-weight: 600; font-size: 15px; padding: 11px 22px; border-radius: 10px; }
+  .btn.primary { background: linear-gradient(90deg, var(--magenta), var(--violet)); color: var(--cream); box-shadow: 0 0 22px rgba(255,46,136,.3); }
+  .btn.ghost { border: 1px solid var(--violet); color: var(--cream); }
+  .btn.ghost:hover { border-color: var(--cyan); }
+
+  section { padding: 64px 0; border-top: 1px solid rgba(255,46,136,.12); }
+  section h2 { font-family: var(--sans); font-size: 32px; font-weight: 600; letter-spacing: -.4px; margin-bottom: 8px; }
+  section .lede { color: var(--lav); max-width: 72ch; margin-bottom: 36px; }
+  section h3 { font-family: var(--sans); font-size: 19px; margin: 28px 0 12px; color: var(--cream); }
+
+  .grid { display: grid; gap: 18px; }
+  .grid.g4 { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .grid.g3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .card { background: var(--panel); border: 1px solid rgba(139,47,201,.35); border-radius: 14px; padding: 22px; }
+  .card .cap { font-family: var(--mono); font-size: 12px; color: var(--lime); display: block; margin-bottom: 12px; }
+
+  .swatch { border-radius: 14px; overflow: hidden; border: 1px solid rgba(139,47,201,.35); cursor: pointer; }
+  .swatch .chip { height: 96px; }
+  .swatch .meta { padding: 14px 16px; background: var(--panel); }
+  .swatch .name { font-family: var(--sans); font-weight: 600; font-size: 15px; }
+  .swatch .hex { font-family: var(--mono); font-size: 13px; color: var(--lav); cursor: pointer; }
+  .swatch .use { font-size: 12px; color: var(--slate); margin-top: 4px; }
+
+  .spec { background: var(--panel); border: 1px solid rgba(139,47,201,.35); border-radius: 14px; padding: 26px; }
+  .spec .label { font-family: var(--mono); font-size: 12px; color: var(--lime); margin-bottom: 8px; }
+  .spec .big { font-family: var(--sans); font-size: 44px; font-weight: 600; line-height: 1.1; }
+  .spec .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .spec .src { font-family: var(--mono); font-size: 12px; color: var(--lav); }
+
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 720px) { .do-dont { grid-template-columns: 1fr; } }
+  .dd { border-radius: 14px; padding: 20px; border: 1px solid; }
+  .dd.ok { border-color: rgba(163,230,53,.4); background: rgba(163,230,53,.05); }
+  .dd.no { border-color: rgba(255,46,136,.4); background: rgba(255,46,136,.05); }
+  .dd .tag { font-family: var(--mono); font-size: 12px; margin-bottom: 10px; display: block; }
+  .dd.ok .tag { color: var(--lime); }
+  .dd.no .tag { color: var(--magenta); }
+  .dd .demo { display: flex; gap: 18px; align-items: center; margin: 12px 0; flex-wrap: wrap; }
+  .dd p { font-size: 14px; color: var(--lav); }
+
+  .term { background: #07000E; border: 1px solid rgba(139,47,201,.5); border-radius: 14px; overflow: hidden; }
+  .term .bar { display: flex; gap: 7px; padding: 12px 16px; border-bottom: 1px solid rgba(139,47,201,.3); }
+  .term .bar span { width: 11px; height: 11px; border-radius: 50%; }
+  .term pre { padding: 20px; font-family: var(--mono); font-size: 13.5px; line-height: 1.55; overflow-x: auto; white-space: pre; }
+  .c-mag { color: var(--magenta); } .c-vio { color: var(--violet); } .c-cya { color: var(--cyan); }
+  .c-lim { color: var(--lime); } .c-amb { color: var(--amber); } .c-cre { color: var(--cream); }
+  .c-dim { color: #6B5B7E; }
+
+  table.files { width: 100%; border-collapse: collapse; font-size: 14px; }
+  table.files th { text-align: left; font-family: var(--sans); padding: 10px 12px; border-bottom: 1px solid rgba(139,47,201,.4); color: var(--lav); font-weight: 600; }
+  table.files td { padding: 10px 12px; border-bottom: 1px solid rgba(139,47,201,.18); vertical-align: top; }
+  table.files td:first-child { font-family: var(--mono); font-size: 12.5px; color: var(--cyan); white-space: nowrap; }
+
+  footer { padding: 44px 0 64px; color: var(--slate); font-size: 13.5px; border-top: 1px solid rgba(255,46,136,.12); }
+  .toast { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%); background: var(--panel);
+    border: 1px solid var(--lime); color: var(--cream); padding: 10px 20px; border-radius: 10px; font-size: 14px;
+    opacity: 0; transition: opacity .25s; pointer-events: none; font-family: var(--mono); }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav>
+    <div class="logo"><img src="assets/logo-mark.svg" width="34" height="34" alt=""><span>mycelium</span></div>
+    <div class="links">
+      <a href="index.html">home</a>
+      <a href="#logo">logo</a>
+      <a href="#color">color</a>
+      <a href="#type">type</a>
+      <a href="#motion">motion</a>
+      <a href="#rules">rules</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <img class="mark" src="assets/logo-mark.svg" alt="mycelium mark">
+    <h1>brand kit</h1>
+    <p>Bioluminescent psychedelia on a terminal void. The visual says <em>trip</em>;
+       the docs say <em>measured on this machine</em>. That tension is the identity.</p>
+    <div class="dlrow">
+      <a class="btn primary" href="assets/logo-mark.svg" download>mark .svg</a>
+      <a class="btn ghost" href="assets/og-image.png" download>social card .png</a>
+      <a class="btn ghost" href="assets/logo-horizontal.svg" download>horizontal lockup</a>
+      <a class="btn ghost" href="assets/wordmark.svg" download>wordmark</a>
+    </div>
+  </header>
+
+  <section id="logo">
+    <h2>the mark</h2>
+    <p class="lede">A spotted mushroom on the magenta→violet→cyan gradient. The stem is cream fading
+       to spore-amber. Acid-lime mycelium threads ripple at the base — the visible mushroom grows
+       out of the network. It breathes, glows, and sheds spores.</p>
+    <div class="grid g4">
+      <div class="card" style="text-align:center"><span class="cap">primary mark (animated)</span>
+        <img src="assets/logo-mark.svg" width="96" height="96" alt=""></div>
+      <div class="card" style="text-align:center"><span class="cap">horizontal lockup</span>
+        <img src="assets/logo-horizontal.svg" width="200" alt=""></div>
+      <div class="card" style="text-align:center"><span class="cap">wordmark</span>
+        <img src="assets/wordmark.svg" width="180" alt=""></div>
+      <div class="card" style="text-align:center"><span class="cap">app icon (favicon)</span>
+        <img src="assets/favicon.svg" width="96" height="96" alt=""></div>
+    </div>
+
+    <h3>construction</h3>
+    <div class="spec">
+      <div class="row">
+        <div>
+          <p style="color:var(--lav); font-size:14px; max-width:60ch">
+            64×64 grid. Cap carries the full spectrum gradient; spots are void-purple with cyan
+            pupils (classic psychedelic iconography). Stem cream→amber with a skirt ring. Threads
+            in acid lime, branching and tapering, with nodes. Spores drift on staggered timings.</p>
+          <ul style="color:var(--lav); font-size:14px; margin:14px 0 0 18px; line-height:1.9">
+            <li>Minimum size <b>16px</b> (mark), <b>96px</b> (horizontal lockup)</li>
+            <li>Clear space = height of one spot on all sides</li>
+            <li>Always on void, or on the panel/ink backdrop — never on white or busy imagery</li>
+            <li>Gradients run magenta → violet → cyan, always in that order (hot to cold = growth)</li>
+          </ul>
+        </div>
+        <img src="assets/logo-mark.svg" width="150" height="150" alt="">
+      </div>
+    </div>
+  </section>
+
+  <section id="color">
+    <h2>color</h2>
+    <p class="lede">Dark-first. The product lives in a terminal; dark is the native habitat.
+       Click any swatch to copy its hex.</p>
+    <div class="grid g4" id="swatches">
+      <div class="swatch" data-hex="#0B0014"><div class="chip" style="background:#0B0014"></div>
+        <div class="meta"><div class="name">Void</div><div class="hex">#0B0014</div>
+        <div class="use">primary background, terminal base</div></div></div>
+      <div class="swatch" data-hex="#FF2E88"><div class="chip" style="background:#FF2E88"></div>
+        <div class="meta"><div class="name">Magenta</div><div class="hex">#FF2E88</div>
+        <div class="use">gradient start, links, primary accent</div></div></div>
+      <div class="swatch" data-hex="#8B2FC9"><div class="chip" style="background:#8B2FC9"></div>
+        <div class="meta"><div class="name">Violet</div><div class="hex">#8B2FC9</div>
+        <div class="use">gradient middle, panels, borders</div></div></div>
+      <div class="swatch" data-hex="#22D3EE"><div class="chip" style="background:#22D3EE"></div>
+        <div class="meta"><div class="name">Cyan</div><div class="hex">#22D3EE</div>
+        <div class="use">gradient end, spot pupils, focus</div></div></div>
+      <div class="swatch" data-hex="#A3E635"><div class="chip" style="background:#A3E635"></div>
+        <div class="meta"><div class="name">Lime</div><div class="hex">#A3E635</div>
+        <div class="use">mycelium threads, success states</div></div></div>
+      <div class="swatch" data-hex="#FBBF24"><div class="chip" style="background:#FBBF24"></div>
+        <div class="meta"><div class="name">Amber</div><div class="hex">#FBBF24</div>
+        <div class="use">spores, emphasis, CTAs</div></div></div>
+      <div class="swatch" data-hex="#FFF3E2"><div class="chip" style="background:#FFF3E2"></div>
+        <div class="meta"><div class="name">Cream</div><div class="hex">#FFF3E2</div>
+        <div class="use">body text on dark, stem</div></div></div>
+    </div>
+
+    <h3>accessibility</h3>
+    <div class="spec" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px;">
+      <div><div class="label mono" style="color:var(--lime); font-size:12px; margin-bottom:6px">PASS AAA</div>
+        <div style="font-size:15px">Cream on Void</div>
+        <div class="mono" style="font-size:13px; color:var(--lav)">#FFF3E2 on #0B0014 — 14.8:1</div></div>
+      <div><div class="label mono" style="color:var(--lime); font-size:12px; margin-bottom:6px">PASS AA (large)</div>
+        <div style="font-size:15px">Magenta on Void</div>
+        <div class="mono" style="font-size:13px; color:var(--lav)">#FF2E88 on #0B0014 — 4.6:1</div></div>
+      <div><div class="label mono" style="color:var(--amb); font-size:12px; margin-bottom:6px">AA large only</div>
+        <div style="font-size:15px">Amber on Void</div>
+        <div class="mono" style="font-size:13px; color:var(--lav)">#FBBF24 on #0B0014 — 9.1:1</div></div>
+      <div><div class="label mono" style="color:var(--mag); font-size:12px; margin-bottom:6px">AVOID</div>
+        <div style="font-size:15px">Violet body text on Void</div>
+        <div class="mono" style="font-size:13px; color:var(--lav)">#8B2FC9 on #0B0014 — 2.6:1</div></div>
+    </div>
+  </section>
+
+  <section id="type">
+    <h2>typography</h2>
+    <p class="lede">All three families are open-licensed (OFL). The site self-hosts woff2 subsets.</p>
+    <div class="grid g3">
+      <div class="spec"><div class="label">display / headings</div>
+        <div class="big" style="font-family:var(--sans)">Space Grotesk</div>
+        <div style="font-family:var(--sans); color:var(--lav); margin-top:8px">Plant it once. It grows.</div>
+        <div class="src" style="margin-top:14px">Space Grotesk 600, fallback ui-sans-serif</div></div>
+      <div class="spec"><div class="label">body</div>
+        <div class="big" style="font-family:var(--body)">Inter</div>
+        <div style="color:var(--lav); margin-top:8px">A local-first agent workstation that scaffolds, researches, writes, connects, and remembers.</div>
+        <div class="src" style="margin-top:14px">Inter 400/600, fallback system sans</div></div>
+      <div class="spec"><div class="label">code / terminal</div>
+        <div class="big mono">JetBrains Mono</div>
+        <div class="mono" style="color:var(--lim); margin-top:8px">$ mcy run "..."</div>
+        <div class="src" style="margin-top:14px">JetBrains Mono 400, fallback ui-monospace</div></div>
+    </div>
+  </section>
+
+  <section id="motion">
+    <h2>motion: the bloom</h2>
+    <p class="lede">Every <span class="mono">mcy</span> command opens with a 1.4-second mushroom bloom —
+       cap grows in gradient rows, stem descends, threads spread, spores drift, the gradient wordmark
+       lands. Motion with manners: TTY only, <span class="mono">--no-splash</span> /
+       <span class="mono">MYCELIUM_NO_SPLASH=1</span> skips it, and <span class="mono">--json</span> or pipes never see it.</p>
+    <div class="term">
+      <div class="bar"><span style="background:#FF2E88"></span><span style="background:#FBBF24"></span><span style="background:#A3E635"></span></div>
+      <pre><span class="c-dim"># the final frame, as truecolor ANSI — mcy/splash.py renders it</span>
+<span class="c-mag">        .-~~~~~~~-.       </span>
+<span class="c-mag">      .'   o o o   '.     </span>
+<span class="c-vio">     /   o   *   o   \    </span>
+<span class="c-vio">    |    *   o*   o    |  </span>
+<span class="c-cya">     \     o    *    /    </span>
+<span class="c-cya">       '-._____.-'       </span>
+<span class="c-cre">         |     |         </span>
+<span class="c-cre">        /       \        </span>
+<span class="c-lim">~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~</span>
+<span class="c-lim">~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~</span>
+<span class="c-amb">   *         *        *   </span>
+
+<span class="c-mag">   mycelium</span><span class="c-vio">  ·  </span><span class="c-cya">plant it once, it grows</span></pre>
+    </div>
+  </section>
+
+  <section id="rules">
+    <h2>usage rules</h2>
+    <p class="lede">Four things that are always right, four that are always wrong.</p>
+    <div class="do-dont">
+      <div class="dd ok"><span class="tag">✓ always</span>
+        <div class="demo">
+          <img src="assets/favicon.svg" width="64" height="64" alt="">
+          <div><b style="font-family:var(--sans)">Void backdrop</b>
+          <p>Mark on the void or on panel #1E0B36, at or above 16px.</p></div>
+        </div></div>
+      <div class="dd no"><span class="tag">✗ never</span>
+        <div class="demo">
+          <img src="assets/favicon.svg" width="64" height="64" style="background:#F5F2E8; border-radius:14px" alt="">
+          <div><b style="font-family:var(--sans)">Light backgrounds</b>
+          <p>No white or cream backdrops. The void is the habitat.</p></div>
+        </div></div>
+      <div class="dd ok"><span class="tag">✓ always</span>
+        <div class="demo">
+          <img src="assets/wordmark.svg" width="150" alt="">
+          <div><b style="font-family:var(--sans)">Full gradient wordmark</b>
+          <p>Magenta → violet → cyan, in order, for any lockup.</p></div>
+        </div></div>
+      <div class="dd no"><span class="tag">✗ never</span>
+        <div class="demo">
+          <span style="font-family:var(--sans); font-size:34px; font-weight:600; color:#3B82F6">mycelium</span>
+          <div><b style="font-family:var(--sans)">Off-palette colors</b>
+          <p>Corporate blue, default purples, one-off hues.</p></div>
+        </div></div>
+      <div class="dd ok"><span class="tag">✓ always</span>
+        <div class="demo">
+          <img src="assets/logo-mark.svg" width="56" height="56" alt="">
+          <div><b style="font-family:var(--sans)">Animated mark</b>
+          <p>Web contexts use the animated SVG; print/og use the PNG renders.</p></div>
+        </div></div>
+      <div class="dd no"><span class="tag">✗ never</span>
+        <div class="demo">
+          <img src="assets/logo-mark.svg" width="56" height="56" style="transform:rotate(18deg); filter:hue-rotate(90deg)" alt="">
+          <div><b style="font-family:var(--sans)">Rotated or hue-shifted</b>
+          <p>No rotation, no hue shifts, no drop shadows, no effects.</p></div>
+        </div></div>
+      <div class="dd ok"><span class="tag">✓ always</span>
+        <div class="demo">
+          <div><b style="font-family:var(--sans)">One glow source</b>
+          <p>Compositions carry a single glow; accents stay ≤15% of any surface.</p></div>
+        </div></div>
+      <div class="dd no"><span class="tag">✗ never</span>
+        <div class="demo">
+          <div><b style="font-family:var(--sans)">Full-spectrum everywhere</b>
+          <p>Lime and amber are accents only. The mushroom is the loud element.</p></div>
+        </div></div>
+    </div>
+  </section>
+
+  <section id="files">
+    <h2>asset files</h2>
+    <p class="lede">Full documentation in <a href="https://github.com/toptacos/mycelium/blob/main/brand/ASSETS.md">brand/ASSETS.md</a>.</p>
+    <table class="files">
+      <tr><th>File</th><th>Format</th><th>Use for</th></tr>
+      <tr><td>logo-mark.svg</td><td>animated SVG</td><td>app icon, avatar, any web context at ≥16px</td></tr>
+      <tr><td>logo-horizontal.svg</td><td>animated SVG</td><td>README header, site nav, slides, ≥96px</td></tr>
+      <tr><td>wordmark.svg</td><td>animated SVG</td><td>text lockups, merch, footers</td></tr>
+      <tr><td>favicon.svg / .ico</td><td>SVG + ICO 16/32</td><td>browser tabs, installs</td></tr>
+      <tr><td>social-card.svg → og-image.png</td><td>SVG + 1200×630 PNG</td><td>OG/Twitter cards (PNG is what platforms read)</td></tr>
+      <tr><td>banner.svg / banner.png</td><td>SVG + 1280×640 PNG</td><td>repo social preview</td></tr>
+      <tr><td>png/logo-{64…1024}.png</td><td>PNG</td><td>anything that can't render SVG</td></tr>
+    </table>
+  </section>
+
+  <footer>
+    <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px">
+      <div>mycelium brand kit v2.0 · Apache-2.0 · toptacos</div>
+      <div><a href="index.html">product</a> · <a href="https://github.com/toptacos/mycelium">github</a> · <a href="https://mycelium.topta.co">mycelium.topta.co</a></div>
+    </div>
+  </footer>
+</div>
+
+<div class="toast" id="toast">copied</div>
+<script>
+  const toast = document.getElementById('toast');
+  function flash(msg) { toast.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 1400); }
+  document.querySelectorAll('.swatch').forEach(el => {
+    el.addEventListener('click', async () => {
+      const hex = el.dataset.hex;
+      try { await navigator.clipboard.writeText(hex); flash(hex + ' copied'); }
+      catch { flash(hex); }
+    });
+  });
+</script>
+</body>
+</html>

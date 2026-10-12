@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Brand assets v2.1**: enhanced animated logo masters (gilled cap with highlight,
+  skirt-ringed stem, branching threads, orbit ring, six staggered spores) plus new
+  `wordmark.svg` and `banner.svg` (1280x640). PNG render set in `brand/png/`
+  (og-image 1200x630, banner, logo 64-1024, favicons, multi-res `.ico`).
+- **Brand kit page** (`site/brand.html`): animated mark, palette with
+  copy-to-clipboard and contrast grades, type specimens, the ANSI bloom, do/don't
+  grid, asset table. Thorough file reference in `brand/ASSETS.md`; deploy guide in
+  `site/README.md`. og:image now a real PNG with Twitter card tags.
 - **Local CI**: `run_command` tool (allowlisted executables, no shell,
   workspace-scoped, output + exit captured, `ToolFailure` preserves the failing
   output), `matrix:` axes and `when:` conditions in workflows, and
