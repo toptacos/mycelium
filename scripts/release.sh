@@ -29,10 +29,11 @@ if not re.fullmatch(r"\d+\.\d+\.\d+", version):
     sys.exit(f"invalid version {version!r}; expected X.Y.Z")
 p = Path("mycelium/__init__.py")
 s = p.read_text()
-s2 = re.sub(r'__version__ = "[^"]+"', f'__version__ = "{version}"', s)
-if s == s2:
+if not re.search(r'__version__ = "[^"]+"', s):
     sys.exit("version string not found in mycelium/__init__.py")
-p.write_text(s2)
+s2 = re.sub(r'__version__ = "[^"]+"', f'__version__ = "{version}"', s)
+if s2 != s:
+    p.write_text(s2)
 print(f"version set to {version}")
 EOF
     if ! grep -q "## \[$version\]" CHANGELOG.md; then
@@ -52,7 +53,7 @@ print(f"changelog section added for {version}")
 EOF
     fi
     git add -A
-    git commit -m "chore(release): $version"
+    git diff --cached --quiet || git commit -m "chore(release): $version"
     git tag -a "v$version" -m "mycelium v$version"
     echo "tagged v$version - push with: git push origin main v$version"
     ;;
