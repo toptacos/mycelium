@@ -55,7 +55,7 @@ fix(backends): treat unknown model-prefix as part of the model name
 feat(proxy)!: rename --ccr-port to --port-3456
 ```
 
-Commit messages are validated in CI (` scripts/check-commits.sh` against
+Commit messages are validated in CI (`scripts/check-commits.py` against
 `git log` since the last tag) and by `scripts/release.sh check`.
 
 ## Release process

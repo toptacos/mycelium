@@ -73,7 +73,7 @@ no state left behind.
 
 ## 5. CI (already running)
 
-`.github/workflows/ci.yml` runs the suite on `ubuntu-latest`, `macos-latest`,
+`.github/.github/workflows/ci.yml` runs the suite on `ubuntu-latest`, `macos-latest`,
 and `windows-latest` across Python 3.11-3.13, and the live Ollama tier on
 Ubuntu with `qwen3:0.6b`. A green badge on `main` means: three OSes, three
 Pythons, real model.

@@ -39,7 +39,12 @@ jobs:
       - name: Install Ollama
         run: |
           curl -fsSL https://ollama.com/install.sh | sh
-          ollama serve &
+          nohup ollama serve > /tmp/ollama.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -sf http://127.0.0.1:11434/api/version && break
+            echo "waiting for ollama... ($i)"; sleep 2
+         
+          done
           ollama pull qwen3:0.6b
       - name: Live tier (real model)
         run: uv sync --dev && uv run pytest -m live -q

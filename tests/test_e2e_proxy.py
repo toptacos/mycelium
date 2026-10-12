@@ -52,7 +52,10 @@ def proxy_url(ws: Path, home: Path, provider):
         proc.kill()
         pytest.fail("proxy did not report a listening URL")
     yield url
-    proc.send_signal(signal.SIGINT)
+    if sys.platform == "win32":
+        proc.terminate()
+    else:
+        proc.send_signal(signal.SIGINT)
     try:
         proc.wait(timeout=10)
     except subprocess.TimeoutExpired:

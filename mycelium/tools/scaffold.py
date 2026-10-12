@@ -258,7 +258,7 @@ async def scaffold_app(args: dict[str, Any], ctx: ToolContext) -> str:
         target = app_root / rel
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(_render(content_tmpl, values), encoding="utf-8")
-        created.append(str(target.relative_to(ctx.workspace.resolve())))
+        created.append(target.relative_to(ctx.workspace.resolve()).as_posix())
 
     lines = [
         f"scaffolded {template} app {name!r} at apps/{name}",

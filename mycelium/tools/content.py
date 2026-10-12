@@ -67,7 +67,7 @@ async def create_content(args: dict[str, Any], ctx: ToolContext) -> str:
     header = f"---\ntitle: {topic}\nkind: {kind}\naudience: {audience}\ntone: {tone}\nmodel: {model}\nwords_cap: {word_cap}\n---\n\n"
     path.write_text(header + body + "\n", encoding="utf-8")
 
-    rel = path.relative_to(ctx.workspace.resolve())
+    rel = path.relative_to(ctx.workspace.resolve()).as_posix()
     word_count = len(body.split())
     return (
         f"created {rel} ({word_count} words, cap {word_cap})\n\npreview:\n{body[:400]}"

@@ -6,6 +6,7 @@ import json
 import sys
 from pathlib import Path
 
+from mycelium import __version__
 from mycelium.paths import APP_NAME, CCR_COMPAT_PORT, COMMAND, DEFAULT_PORT
 
 
@@ -48,6 +49,7 @@ def build_parser() -> argparse.ArgumentParser:
         prog=COMMAND,
         description="mycelium: local-first agent workstation. scaffold, research, content, integrations, workflows.",
     )
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     _add_global(parser)
     sub = parser.add_subparsers(dest="command", required=True)
 

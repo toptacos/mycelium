@@ -16,7 +16,7 @@ async def fs_read(args: dict[str, Any], ctx: ToolContext) -> str:
     truncated = len(text) > MAX_READ_CHARS
     if truncated:
         text = text[:MAX_READ_CHARS]
-    rel = path.relative_to(ctx.workspace.resolve())
+    rel = path.relative_to(ctx.workspace.resolve()).as_posix()
     header = f"# {rel} ({path.stat().st_size} bytes)"
     if truncated:
         header += f" [truncated to {MAX_READ_CHARS} chars]"
@@ -28,7 +28,7 @@ async def fs_write(args: dict[str, Any], ctx: ToolContext) -> str:
     content = args.get("content", "")
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
-    rel = path.relative_to(ctx.workspace.resolve())
+    rel = path.relative_to(ctx.workspace.resolve()).as_posix()
     return f"wrote {len(content)} chars to {rel}"
 
 
@@ -53,7 +53,7 @@ async def fs_list(args: dict[str, Any], ctx: ToolContext) -> str:
             for part in p.parts
         ):
             continue
-        rel = p.relative_to(ctx.workspace.resolve())
+        rel = p.relative_to(ctx.workspace.resolve()).as_posix()
         lines.append(("d " if p.is_dir() else "f ") + str(rel))
         count += 1
         if count >= max_entries:
@@ -87,7 +87,7 @@ async def fs_grep(args: dict[str, Any], ctx: ToolContext) -> str:
             continue
         for lineno, line in enumerate(text.splitlines(), 1):
             if rx.search(line):
-                rel = p.relative_to(ctx.workspace.resolve())
+                rel = p.relative_to(ctx.workspace.resolve()).as_posix()
                 hits.append(f"{rel}:{lineno}: {line.strip()[:160]}")
                 if len(hits) >= 50:
                     return "\n".join(hits) + "\n... truncated at 50 hits"
