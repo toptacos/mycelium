@@ -1,0 +1,80 @@
+# mycelium configuration example
+# Location precedence:
+#   1. built-in defaults
+#   2. ~/.mycelium/mycelium.toml  (global)
+#   3. ./mycelium.toml            (project)
+#   4. env: MYCELIUM_BACKEND / MYCELIUM_MODEL / MYCELIUM_VERBOSE / MYCELIUM_READ_ONLY / MYCELIUM_HOME
+#   5. CLI flags
+
+# Default backend + model. "local" is Ollama on this machine; no API key needed.
+# qwen3:0.6b is the default because this workstation is CPU-only and the small
+# model answers in seconds; switch with --model local:qwen2.5-coder:latest for
+# harder tasks (expect minutes per turn on CPU).
+backend = "local"
+model = "local:qwen3:0.6b"
+
+# Stronger model for summarization/research steps (falls back to `backend`/`model`).
+strong_backend = "local"
+strong_model = ""
+
+# Context window management. The agent compacts middle turns when usage crosses
+# compact_threshold of (context_window - reserve_tokens).
+context_window = 32768
+reserve_tokens = 1024
+compact_threshold = 0.8
+
+# Agent loop budget.
+max_steps = 8
+
+verbose = false
+port = 8787
+
+[backends.local]
+kind = "ollama"
+base_url = "http://127.0.0.1:11434"
+default_model = "qwen2.5-coder:latest"
+models = ["qwen3:0.6b", "llama3:latest", "qwen2.5-coder:latest"]
+
+[backends.openrouter]
+kind = "openai"
+base_url = "https://openrouter.ai/api/v1"
+api_key_env = "OPENROUTER_API_KEY"
+default_model = "qwen/qwen3-coder:free"
+models = [
+  "qwen/qwen3-coder:free",
+  "deepseek/deepseek-chat-v3-0324:free",
+  "google/gemini-2.0-flash-exp:free",
+]
+
+[backends.gemini]
+kind = "gemini"
+base_url = "https://generativelanguage.googleapis.com/v1beta"
+api_key_env = "GOOGLE_API_KEY"
+default_model = "gemini-2.0-flash"
+models = ["gemini-2.0-flash", "gemini-2.5-flash-lite"]
+
+[backends.deepseek]
+kind = "openai"
+base_url = "https://api.deepseek.com/v1"
+api_key_env = "DEEPSEEK_API_KEY"
+default_model = "deepseek-chat"
+models = ["deepseek-chat", "deepseek-reasoner"]
+
+[backends.anthropic]
+kind = "anthropic"
+base_url = "https://api.anthropic.com"
+api_key_env = "ANTHROPIC_API_KEY"
+default_model = "claude-sonnet-4-5"
+models = ["claude-sonnet-4-5", "claude-haiku-4-5"]
+
+# Third-party connection profiles for the call_api tool.
+# Tokens are read from environment variables at call time - never stored here.
+[connections.example]
+base_url = "http://127.0.0.1:9799"
+methods = ["GET"]
+
+[connections.github]
+base_url = "https://api.github.com"
+auth_env = "GITHUB_TOKEN"
+auth_header = "Authorization"
+methods = ["GET", "POST", "PATCH"]
