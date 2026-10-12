@@ -1,0 +1,34 @@
+scaffold-app       Scaffold a new application, run its tests, report results
+research           Fetch a web page, answer a question, save research notes
+content            Create a blog post draft, save to content/
+integration        Call a third-party API connection and summarize the response
+workflow           Execute a multi-step YAML workflow end to end
+
+            workflows in /Users/mcachran/Projects/mycelium/workflows            
+┏━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ name                   ┃ description                                         ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ onboard-check          │ Verify a scaffolded app exists, read its README,    │
+│                        │ and write a status file                             │
+│ release-notes          │ Scan a repo for recent changes and write            │
+│                        │ RELEASE_NOTES.md                                    │
+│ weekly-research-digest │ Fetch a URL, summarize it, and save a digest note   │
+└────────────────────────┴─────────────────────────────────────────────────────┘
+
+                                    backends                                    
+┏━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ name       ┃ kind      ┃ models                   ┃ key                      ┃
+┡━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ local      │ ollama    │ qwen3:0.6b,              │ -                        │
+│            │           │ qwen2.5-coder:latest,    │                          │
+│            │           │ llama3:latest            │                          │
+│ openrouter │ openai    │ qwen/qwen3-coder:free,   │ $OPENROUTER_API_KEY      │
+│            │           │ deepseek/deepseek-chat-… │ (missing)                │
+│            │           │ google/gemini-2.0-flash… │                          │
+│ gemini     │ gemini    │ gemini-2.0-flash,        │ $GOOGLE_API_KEY          │
+│            │           │ gemini-2.5-flash-lite    │ (missing)                │
+│ deepseek   │ openai    │ deepseek-chat,           │ $DEEPSEEK_API_KEY        │
+│            │           │ deepseek-reasoner        │ (missing)                │
+│ anthropic  │ anthropic │ claude-sonnet-4-5,       │ $ANTHROPIC_API_KEY       │
+│            │           │ claude-haiku-4-5         │ (missing)                │
+└────────────┴───────────┴──────────────────────────┴──────────────────────────┘

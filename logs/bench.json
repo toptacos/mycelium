@@ -1,0 +1,40 @@
+{
+  "machine": {
+    "platform": "darwin",
+    "python": "3.14.3",
+    "note": "measured on this machine; not a controlled benchmark"
+  },
+  "cli_help": {
+    "ms_avg": 2255.6,
+    "ms_min": 1723.9,
+    "ms_max": 2630.3,
+    "n": 5,
+    "result": 0
+  },
+  "import": {
+    "ms_avg": 1052.9,
+    "ms_min": 963.3,
+    "ms_max": 1137.4,
+    "n": 5,
+    "result": 0
+  },
+  "test_suite": {
+    "ms": 215530.0,
+    "rc": 0,
+    "summary": "157 passed, 3 deselected in 209.85s (0:03:29)"
+  },
+  "sample_suite": {
+    "ms": 29911.3,
+    "rc": 0
+  },
+  "proxy": {
+    "bind_ms": 50.9,
+    "healthz_ms_avg": 142.44,
+    "healthz_ms_min": 7.14
+  },
+  "memory_io": {
+    "add_500_ms": 845.9,
+    "recall_50_ms": 4903.6,
+    "entries": 500
+  }
+}
