@@ -6,7 +6,7 @@ uv run pytest -m live    # real Ollama + real sockets (~5 min; skips with a reas
 uv run pytest -k compaction -v
 ```
 
-133 tests, 5 tiers. The suite needs no model server and no network except the
+171 tests, 6 tiers. The suite needs no model server and no network except the
 tests that deliberately spin up local HTTP fixtures.
 
 ## Tiers

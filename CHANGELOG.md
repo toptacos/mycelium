@@ -71,7 +71,7 @@ memory; JSONL telemetry with session analysis.
   + global scopes, forget.
 - **Telemetry** (`telemetry.py`): JSONL session log; `report` analysis of
   tokens, tools, latency, compactions, errors.
-- **Tests**: 139 tests across unit, integration, e2e (five sample-prompt
+- **Tests**: 171 tests across unit, integration, e2e (five sample-prompt
   scenarios with artifact assertions), Hypothesis properties, and a live tier
   against real Ollama.
 - Docs: README, ARCHITECTURE, TESTING, CCR_INTEROP, BENCHMARKS.

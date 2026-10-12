@@ -6,8 +6,9 @@ Local-first agent workstation ("mycelium", command `mcy`). Python 3.11+, uv, pyt
 
 ```bash
 uv sync                          # install deps
-uv run pytest -q                 # full suite (157 tests; ~39s core + ~3min e2e)
-uv run pytest -m "not e2e" -q    # core tier only
+uv run pytest -q                 # full suite (171 tests; ~20s core + ~1min e2e)
+uv run pytest -m "not e2e" -q    # core tier only (~20s)
+uv run pytest -m e2e -q          # subprocess e2e tier (~1min)
 uv run pytest -m live -q         # real Ollama (skips with reason if absent)
 uv run mcy doctor                # environment check (tri-state OK/FAIL/skip)
 uv run mcy --workspace <dir> run "task"   # headless agent run

@@ -148,9 +148,10 @@ optional in-scaffold test runner. Verified on macOS (this machine). Windows:
 ## Tests
 
 ```bash
-uv run pytest                  # 157 tests: 139 core (~39s) + 18 subprocess e2e (~3min)
-uv run pytest -m "not e2e" -q # core tier only
-uv run pytest -m live          # real Ollama, skips politely if absent
+uv run pytest                  # 171 tests: 150 core (~20s) + 18 subprocess e2e (~1min) + 3 live
+uv run pytest -m "not e2e" -q # core tier only (~20s)
+uv run pytest -m e2e -q        # subprocess end-to-end tier
+uv run pytest -m live -q       # real Ollama, skips politely if absent
 ```
 
 Tiers: unit (backends, context, memory, telemetry, config), integration

@@ -12,7 +12,7 @@ measurement.
 
 > mycelium is a local-first agent workstation. Scaffold apps, research, write,
 > connect APIs, run workflows — powered by a 522MB model on your machine.
-> No subscription. 3 deps. 139 tests.
+> No subscription. 3 deps. 171 tests.
 > curl -fsSL https://mycelium.topta.co/mcy | sh
 
 **Thread — "we measured, on purpose":**

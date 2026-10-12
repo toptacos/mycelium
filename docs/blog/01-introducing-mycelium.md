@@ -50,7 +50,7 @@ From an Intel MacBook, CPU-only:
 - 57-65s per agent turn with that model — we built around it: tool calls take
   milliseconds, the loop is budgeted, and every number in our docs says which
   machine produced it
-- 3 runtime dependencies; 157 tests; the core suite runs in ~39s
+- 3 runtime dependencies; 171 tests; the core suite runs in ~20s
 - Proxy round-trip to the local model: 1.6s
 
 ```bash

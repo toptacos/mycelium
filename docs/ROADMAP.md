@@ -8,7 +8,7 @@ Versioning per [VERSIONING.md](VERSIONING.md).
 - Agent loop, five backends, seven tools, workflows with checkpoints
 - Memory + distillation, context budgeting + compaction, telemetry + report
 - Proxy (OpenAI + Anthropic endpoints), CLI (10 commands)
-- 139 tests, VM guides, casts, branding, site source, marketing kit
+- 171 tests, VM guides, casts, branding, site source, marketing kit
 
 ## v0.2 — "hyphae" (next)
 

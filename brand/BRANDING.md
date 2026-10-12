@@ -56,7 +56,7 @@ hardware with a 522MB model.
 ### Proof points (use these, in this order)
 
 - 5 backends: local Ollama, OpenRouter, Gemini, DeepSeek, Anthropic
-- 157 tests, 3-OS CI matrix, VM guides for Ubuntu/Fedora/Windows
+- 171 tests (150 core + 18 subprocess e2e + 3 live), 3-OS CI matrix, VM guides for Ubuntu/Fedora/Windows
 - 5 sample-prompt scenarios with asserted artifacts
 - Scaffolded app tests actually run and pass
 - Proxy round-trip measured at 1.6s on CPU
