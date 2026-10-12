@@ -69,6 +69,10 @@ uv run mcy serve --port 8787
 Global flags: `--workspace DIR --backend NAME --model spec --home DIR -v`.
 Model spec: `backend:model` or a bare model name (uses the default backend).
 
+On a terminal, every command opens with the animated mushroom bloom
+(`mcy --no-splash ...` or `MYCELIUM_NO_SPLASH=1` to skip it; pipes and CI never
+see it).
+
 ## The five sample scenarios
 
 Each has a prompt (in `prompts/` and `mcy prompts`), an end-to-end test

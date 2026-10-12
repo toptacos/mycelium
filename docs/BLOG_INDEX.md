@@ -11,13 +11,17 @@ output, before editing.
 
 ## Posts
 
-| Post | File | Model | Words cap | Status |
-|---|---|---|---|---|
-| Introducing mycelium | `content/introducing-mycelium-...-blog.md` | qwen3:0.6b | 700 | draft + editor's note |
-| vs Claude Code + ccr | `content/mycelium-vs-claude-code-ccr-blog.md` | qwen3:0.6b | 700 | draft + editor's note |
-| Local AI tooling compared | `content/local-ai-tooling-compared-blog.md` | qwen3:0.6b | 700 | draft + editor's note |
-| The local-first case | `content/local-first-case-blog.md` | qwen3:0.6b | 650 | draft + editor's note |
-| Scaffolding with 522MB | `content/scaffolding-with-522mb-blog.md` | qwen3:0.6b | 650 | draft + editor's note |
+| # | Post | Final file | Model | Words cap | Editorial outcome |
+|---|---|---|---|---|---|
+| 1 | Introducing mycelium | `docs/blog/01-introducing-mycelium.md` | qwen3:0.6b | 700 | rewritten: draft had no commands or numbers |
+| 2 | vs Claude Code + ccr | `docs/blog/02-vs-claude-code-ccr.md` | qwen3:0.6b | 700 | rewritten: draft hallucinated blockchain; called Claude Code open-source |
+| 3 | Local AI tooling compared | `docs/blog/03-local-tooling-compared.md` | qwen3:0.6b | 700 | rewritten: draft hallucinated "ecological system" + invented competitor "Lib-blog.md" |
+| 4 | The local-first case | `docs/blog/04-local-first-case.md` | qwen3:0.6b | 650 | edited: draft claims made specific and sourced |
+| 5 | Scaffolding with 522MB | `docs/blog/05-scaffolding-with-522mb.md` | qwen3:0.6b | 650 | rewritten: draft was generic CLI advice (Tkinter, PyTorch), not the measured run |
+
+Raw model output is preserved verbatim in the verbose logs; each final post
+carries an editor's note listing exactly what was wrong and where the
+corrections come from.
 
 ## Editorial policy for dogfooded content
 

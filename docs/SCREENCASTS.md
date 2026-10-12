@@ -6,6 +6,7 @@ Re-record everything with `scripts/record-all-casts.sh`.
 
 | Cast | Shows | Duration | Model |
 |---|---|---|---|
+| `00-splash` | the startup bloom (animated mushroom) + `prompts list` | ~4s | none |
 | `01-install-doctor` | `uv sync` + `mcy doctor` | ~6s | none |
 | `02-explore` | `prompts list`, `models`, `workflow list` | ~10s | none |
 | `03-scaffold-live` | scaffold a Python CLI, run its tests | ~6 min | qwen3:0.6b live |
@@ -13,6 +14,17 @@ Re-record everything with `scripts/record-all-casts.sh`.
 | `05-proxy` | proxy + OpenAI/Anthropic endpoints via curl | ~10s | qwen3:0.6b live |
 | `06-learn-report` | `learn`, `memory recall`, `report` | ~5s | none |
 | `07-sample-suite` | `scripts/run-samples.sh scripted` | ~30s | scripted |
+
+## The bloom
+
+`mcy` opens with a 1.4-second mushroom bloom (`mycelium/splash.py`): the cap
+grows in gradient rows, the stem descends, lime threads spread, spores drift,
+and the wordmark lands. Cast `00` shows it at real speed.
+
+It respects the terminal: TTY only, `--no-splash` or `MYCELIUM_NO_SPLASH=1` to
+skip, `--json` runs never see it, and CI/pipes never see it. If you re-record
+casts, note that `script` or a real terminal allocates the pty the splash
+requires — plain `subprocess` pipes will (correctly) show nothing.
 
 ## Playing
 
