@@ -1,27 +1,40 @@
 # Examples
 
-Real captured output from real runs on the author's machine (Intel MacBook,
-macOS 25.6, CPU-only, 2026-10-11). Nothing here is hand-edited.
+Runnable recipes for the public CLI (`mcy`). Each folder has a short README,
+a shell script you can run after install, and `expected.txt` captured on a
+real machine (structure matters more than exact wording).
+
+| Example | Needs model? | What it shows |
+|---|---|---|
+| [01-explore](01-explore/) | no | `prompts list`, `workflow list`, `models` |
+| [02-memory](02-memory/) | no | `learn` + `memory recall` round-trip |
+| [03-workflow-dry-run](03-workflow-dry-run/) | no | `workflow run … --dry-run` |
+
+Also see:
 
 | Path | What it is |
 |---|---|
-| `logs/explore.txt` | `mcy prompts list`, `mcy workflow list`, `mcy models` |
-| `logs/bench.json` | output of `python scripts/bench.py` — CLI start, import, suite times, proxy RTT, memory IO |
-| `logs/blog/*.log` | verbose telemetry from generating each launch blog post with the live model |
+| `logs/explore.txt` | Older captured explore session |
+| [`docs/ARCHITECTURE.md`](../docs/ARCHITECTURE.md) | How the layers fit |
+| [`docs/INSTALL.md`](../docs/INSTALL.md) | Per-OS install |
+| [`scripts/run-samples.sh`](../scripts/run-samples.sh) | Five sample-prompt scenarios (scripted or live) |
 
-Screencasts (asciinema casts) live in `site/casts/` — see
-[docs/SCREENCASTS.md](../docs/SCREENCASTS.md).
-
-## Reproduce
+## Prerequisites
 
 ```bash
-uv run mcy prompts list
-uv run mcy workflow list
-uv run mcy models
-python scripts/bench.py --out logs/bench.json
-bash scripts/generate-blog-posts.sh     # writes logs/blog/
+# from a clone
+uv sync
+# or after the one-liner install
+curl -fsSL https://mycelium.topta.co/mcy | sh
 ```
 
-Numbers will differ on your machine (especially the model turns — Apple
-Silicon is 5-10x faster than the Intel CPU this was measured on). The
-*structure* of the output is what matters.
+Then:
+
+```bash
+bash examples/01-explore/run.sh
+bash examples/02-memory/run.sh
+bash examples/03-workflow-dry-run/run.sh
+```
+
+Compare stdout to each folder's `expected.txt`. Paths and table borders may
+differ; the command names and key phrases should appear.

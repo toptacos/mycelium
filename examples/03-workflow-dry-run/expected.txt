@@ -1,0 +1,6 @@
+### workflow run release-notes --dry-run
+workflow release-notes: ok
+  [ok] list (0 ms)
+  [ok] readme (0 ms)
+  [ok] draft (0 ms)
+  [ok] write (0 ms)

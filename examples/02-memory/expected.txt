@@ -1,0 +1,5 @@
+### learn
+learned preference: deploys are fridays only (id=…) -> …/.mycelium/memory.jsonl
+
+### memory recall
+- (preference) deploys are fridays only  [tags: deploy]

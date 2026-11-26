@@ -1,0 +1,12 @@
+### prompts list
+scaffold-app       Scaffold a new application, run its tests, report results
+research           Fetch a web page, answer a question, save research notes
+content            Create a blog post draft, save to content/
+integration        Call a third-party API connection and summarize the response
+workflow           Execute a multi-step YAML workflow end to end
+
+### workflow list
+… table including release-notes, onboard-check, weekly-research-digest, ci-local …
+
+### models
+… table including local (ollama) and optional cloud backends …
