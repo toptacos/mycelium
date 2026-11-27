@@ -1,0 +1,8 @@
+#!/bin/sh
+# Thin launcher so mycelium's run_command allowlist can call `mcy`.
+# uv --directory would otherwise make relative --workspace mean the mycelium repo.
+set -euo pipefail
+SRC="${MYCELIUM_SRC:-${HOME}/Projects/mycelium}"
+WS="${MYCELIUM_WORKSPACE:-$(pwd)}"
+HOME_DIR="${MYCELIUM_HOME:-$WS/.mycelium-home}"
+exec uv run --directory "$SRC" mcy --workspace "$WS" --home "$HOME_DIR" "$@"

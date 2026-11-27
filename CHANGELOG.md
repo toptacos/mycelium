@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Kraken compose workstation** (`examples/04-kraken-compose/`): mycelium
+  orchestrates, Kraken plans Docker. Isolated homes, loopback binds,
+  `kraken up` without `--start`. `mcy example list|show|copy` (alias
+  `kraken-compose`) copies the recipe from a git checkout. Cursor skill
+  `.cursor/skills/kraken-mycelium-workstation/`. `dry-run` / `live` need
+  no model.
 - **Brand assets v2.1**: enhanced animated logo masters (gilled cap with highlight,
   skirt-ringed stem, branching threads, orbit ring, six staggered spores) plus new
   `wordmark.svg` and `banner.svg` (1280x640). PNG render set in `brand/png/`

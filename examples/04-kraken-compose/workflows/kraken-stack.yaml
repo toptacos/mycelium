@@ -1,0 +1,22 @@
+name: kraken-stack
+goal: Snapshot the host, ping the contract, index inventory, file a shift note.
+steps:
+  - id: host
+    tentacle: monitor
+    action: snapshot
+  - id: hello
+    tentacle: hello
+    action: ping
+  - id: index
+    tentacle: filesort
+    action: scan
+    payload:
+      path: inventory
+  - id: note
+    tentacle: notes
+    action: put
+    payload:
+      name: shift-open
+      body: |
+        Reef shift opened.
+        Plan-only Docker. Loopback binds. No expose, no tunnel, no LLM grant.
