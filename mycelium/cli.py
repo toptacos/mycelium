@@ -139,6 +139,20 @@ def build_parser() -> argparse.ArgumentParser:
     p_models = sub.add_parser("models", help="list configured backends and models")
     _add_global(p_models)
 
+    p_ex = sub.add_parser(
+        "example",
+        help="list, show, or copy bundled recipes (from a git checkout)",
+    )
+    _add_global(p_ex)
+    p_ex.add_argument(
+        "action",
+        nargs="?",
+        default="list",
+        help="list | show | copy | recipe id (copy)",
+    )
+    p_ex.add_argument("name", nargs="?", help="recipe id (04-kraken-compose)")
+    p_ex.add_argument("dest", nargs="?", help="copy destination directory")
+
     return parser
 
 
@@ -565,6 +579,74 @@ async def _cmd_prompts(args) -> int:
     return 0
 
 
+async def _cmd_example(args) -> int:
+    from mycelium.examples_lib import (
+        ALIASES,
+        canonical_id,
+        copy_example,
+        example_dir,
+        list_examples,
+    )
+
+    action = args.action or "list"
+    name = args.name
+    dest = args.dest
+    if action not in {"list", "show", "copy"}:
+        dest = name
+        name = action
+        action = "copy"
+
+    if action == "list":
+        items = list_examples()
+        if not items:
+            print(
+                "no examples found; run mcy from a mycelium git checkout",
+                file=sys.stderr,
+            )
+            return 2
+        for item in items:
+            print(f"{item['id']:24s} {item['path']}")
+        print()
+        print("next: mcy example copy 04-kraken-compose")
+        print("      bash examples/04-kraken-compose/run.sh dry-run")
+        return 0
+
+    if not name:
+        print("usage: mcy example show|copy <id> [dest]", file=sys.stderr)
+        return 2
+
+    src = example_dir(name)
+    if src is None:
+        available = ", ".join(item["id"] for item in list_examples()) or "(none)"
+        aliases = ", ".join(f"{k}->{v}" for k, v in ALIASES.items())
+        print(
+            f"unknown example {name!r}; available: {available}; aliases: {aliases}",
+            file=sys.stderr,
+        )
+        return 2
+
+    if action == "show":
+        readme = src / "README.md"
+        print(readme.read_text(encoding="utf-8") if readme.exists() else src)
+        print(f"\npath: {src}")
+        print(f"next: bash {src / 'run.sh'} dry-run")
+        return 0
+
+    target = Path(dest) if dest else Path.cwd() / canonical_id(name)
+    try:
+        copied = copy_example(name, target)
+    except FileExistsError as exc:
+        print(f"error: destination exists: {exc}", file=sys.stderr)
+        return 2
+    except FileNotFoundError:
+        print(f"unknown example {name!r}", file=sys.stderr)
+        return 2
+    print(f"copied {canonical_id(name)} -> {copied}")
+    print(f"next: bash {copied / 'run.sh'} dry-run")
+    print(f"      bash {copied / 'run.sh'} live")
+    return 0
+
+
 async def _cmd_models(args) -> int:
     from mycelium.config import load_settings
 
@@ -605,6 +687,7 @@ _HANDLERS = {
     "report": _cmd_report,
     "prompts": _cmd_prompts,
     "models": _cmd_models,
+    "example": _cmd_example,
 }
 
 

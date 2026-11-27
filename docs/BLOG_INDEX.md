@@ -18,6 +18,7 @@ output, before editing.
 | 3 | Local AI tooling compared | `docs/blog/03-local-tooling-compared.md` | qwen3:0.6b | 700 | rewritten: draft hallucinated "ecological system" + invented competitor "Lib-blog.md" |
 | 4 | The local-first case | `docs/blog/04-local-first-case.md` | qwen3:0.6b | 650 | edited: draft claims made specific and sourced |
 | 5 | Scaffolding with 522MB | `docs/blog/05-scaffolding-with-522mb.md` | qwen3:0.6b | 650 | rewritten: draft was generic CLI advice (Tkinter, PyTorch), not the measured run |
+| 6 | Kraken hands | `docs/blog/06-kraken-hands.md` | human | — | canonical on kraken.topta.co/blog; composition with Kraken, plan-only Docker |
 
 Raw model output is preserved verbatim in the verbose logs; each final post
 carries an editor's note listing exactly what was wrong and where the

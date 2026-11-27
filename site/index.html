@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>mycelium — plant it once. it grows.</title>
-<meta name="description" content="A local-first agent workstation: scaffold, research, content, integrations, workflows. Runs on your machine with a 522MB model.">
+<meta name="description" content="A local-first agent workstation: scaffold, research, content, integrations, workflows. Pair with Kraken CLI for plan-only local environments. Runs on your machine with a 522MB model.">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
@@ -83,6 +83,7 @@
     <div class="logo"><img src="assets/logo-mark.svg" width="34" height="34" alt=""><span>mycelium</span></div>
     <div class="links">
       <a href="#features">features</a>
+      <a href="#workstation">workstation</a>
       <a href="#casts">screencasts</a>
       <a href="#numbers">numbers</a>
       <a href="brand.html">brand kit</a>
@@ -119,6 +120,31 @@
         <p>YAML workflows with variable passing, dry-run, and checkpoints — pick up where it failed.</p></div>
       <div class="card"><span class="tag">remember</span><h3>It learns as it goes</h3>
         <p>Every run is distilled into memory and recalled next time. Context is budgeted and compacted.</p></div>
+    </div>
+  </section>
+
+  <section id="workstation">
+    <h2>mycelium is the head. Kraken is the hands.</h2>
+    <p class="lede">A laptop developer console for the topta.co harbor: plan compose, doctor both CLIs,
+       optional local-model briefs. Isolated homes. Loopback binds. Not how production
+       <code class="mono">*.topta.co</code> is served.</p>
+    <div class="grid">
+      <div class="card"><span class="tag">no model</span><h3>Copy and dry-run</h3>
+        <p><code class="mono">mcy example list</code> then
+           <code class="mono">bash examples/04-kraken-compose/run.sh dry-run</code>.
+           <code class="mono">live</code> still starts no containers.</p></div>
+      <div class="card"><span class="tag">prompts</span><h3>What to ask an agent</h3>
+        <p>Plan my local stack (no containers). Shift the topta.co hub workstation.
+           Analyze public pages with the local model.</p></div>
+      <div class="card"><span class="tag">never</span><h3>Not production</h3>
+        <p>Do not <code class="mono">docker compose up</code> or
+           <code class="mono">kraken up --start</code>. No rsync. No seed.
+           Docs: <a href="https://topta.co/docs/workstation">topta.co/docs/workstation</a>
+           · <a href="https://topta.co/docs/together">how they differ</a>
+           · <a href="https://kraken.topta.co/docs/workstation">kraken.topta.co</a>.
+           Journal: <a href="https://kraken.topta.co/blog/kraken-vs-mycelium">Kraken vs mycelium</a>
+           · <a href="https://kraken.topta.co/blog/plan-only-compose">plan-only compose</a>
+           · <a href="https://kraken.topta.co/blog/laptop-not-production">not production</a>.</p></div>
     </div>
   </section>
 
@@ -162,8 +188,8 @@
         <div class="logo" style="font-size:16px"><img src="assets/logo-mark.svg" width="26" height="26" alt=""> mycelium</div>
         <p style="margin-top:10px">Apache-2.0 · toptacos</p>
       </div>
-      <div><b>Product</b><a href="#features">features</a><a href="#casts">screencasts</a><a href="#numbers">benchmarks</a></div>
-      <div><b>Docs</b><a href="https://github.com/toptacos/mycelium">repository</a><a href="https://github.com/toptacos/mycelium/blob/main/docs/ARCHITECTURE.md">architecture</a><a href="https://github.com/toptacos/mycelium/blob/main/docs/COMPARISON.md">comparison</a></div>
+      <div><b>Product</b><a href="#features">features</a><a href="#workstation">workstation</a><a href="#casts">screencasts</a><a href="#numbers">benchmarks</a></div>
+      <div><b>Docs</b><a href="https://github.com/toptacos/mycelium">repository</a><a href="https://github.com/toptacos/mycelium/blob/main/docs/ARCHITECTURE.md">architecture</a><a href="https://github.com/toptacos/mycelium/blob/main/docs/COMPARISON.md">comparison</a><a href="https://topta.co/docs/together">kraken and mycelium</a></div>
       <div><b>Install</b><a href="#">mycelium.topta.co/mcy</a><a href="https://github.com/toptacos/mycelium/blob/main/docs/INSTALL.md">per-OS guides</a></div>
     </div>
   </footer>

@@ -1,0 +1,14 @@
+== kraken init (isolated home) ==
+== mycelium workflow list ==
+shift
+kraken-stack
+
+== mycelium workflow show shift ==
+shift
+
+== shift --dry-run ==
+[ok]
+dry_run
+
+KRAKEN_HOME=
+report:

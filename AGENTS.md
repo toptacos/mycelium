@@ -19,6 +19,19 @@ scripts/release.sh check         # tests + changelog + conventional-commit scan
 
 There is no lint/typecheck command yet. If you add one, put it here.
 
+## Local workstation (Kraken + mycelium)
+
+Isolated homes. Docker plan-only. No production writes.
+
+```bash
+uv run mcy example list
+bash examples/04-kraken-compose/run.sh dry-run
+bash examples/04-kraken-compose/run.sh live
+```
+
+`dry-run` / `live` need no Ollama. Do not `docker compose up` or `kraken up --start`.
+Suggested prompt: "Plan my local stack (no containers)".
+
 ## Layout
 
 - `mycelium/` — package: `cli.py`, `agent.py`, `backends.py`, `context.py`,

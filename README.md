@@ -58,6 +58,12 @@ uv run mcy workflow list
 uv run mcy workflow run release-notes --input repo_path=.
 uv run mcy workflow run release-notes --dry-run
 
+# bundled recipes (git checkout)
+uv run mcy example list
+uv run mcy example copy 04-kraken-compose
+bash examples/04-kraken-compose/run.sh dry-run   # Kraken + mycelium, no model
+# Suggested: "Plan my local stack (no containers)"
+
 # local CI: run the same checks GitHub Actions runs, on your machine
 uv run mcy --workspace . workflow run ci-local            # commit scan + suites + build
 uv run mcy --workspace . workflow run ci-local --input live=1   # + live model tier
